@@ -232,7 +232,7 @@ $row = mysql_fetch_array($sql);
                                             <td><?php echo $name;?></td>
                                             <td><?php echo $size;?>Mb</td>
                                             <td><?php echo $type;?></td>
-                                            <td class="center"><a target="_blank"href="play_mp4.php?id=<?php echo $data_link; ?>" class=""></a></td>
+                                            <td class="center"><a target="_blank"href="play_mp4.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
 											
 											
 											<?php
