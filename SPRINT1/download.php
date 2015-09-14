@@ -97,7 +97,6 @@ $row = mysql_fetch_array($sql);
 							<li class="menu-item"><a href="blog.php">Videos</a></li>
 							<li class="menu-item"><a href="about.php">Ebooks</a></li>
 							<li class="menu-item"><a href="gallery.php">Gallery</a></li>
-							
 							<?php
 							}
 							else{}
@@ -233,7 +232,7 @@ $row = mysql_fetch_array($sql);
                                             <td><?php echo $name;?></td>
                                             <td><?php echo $size;?>Mb</td>
                                             <td>mp3</td>
-                                            <td class="center"><a target="_blank"href="play_mp3.php?id=<?php echo $data_link; ?>" class=""></a></td>
+                                            <td class="center"><a target="_blank"href="play_mp3.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
 											
 											<?php
 												$check_size = mysql_query("select data_downloaded from registered_users where user_id='$id'");
