@@ -91,7 +91,6 @@ $row = mysql_fetch_array($sql);
 							<li class="menu-item"><a href="blog.php">Videos</a></li>
 							<li class="menu-item"><a href="about.php">Ebooks</a></li>
 							<li class="menu-item current-menu-item"><a href="gallery.php">Gallery</a></li>
-							
 							<?php
 							}
 							else{}
@@ -206,19 +205,13 @@ $row = mysql_fetch_array($sql);
 							
 							
 								<div class="filterable-item concert">
-									<a href="<?php echo $link; ?>"><figure><img src="<?php echo $link; ?>" alt="<?php echo $name;?>"></figure></a>
-									<a target="_blank" class="btn btn-warning"  href="<?php echo $link; ?>" download>Download</a>
-									<a  class="btn btn-warning"  href="delete.php?id=<?php echo $row['media_id'];?>&page=images">Delete</a>
-                                    <a href="<?php echo $link; ?>" download></a>
-                                    <a href="#"
-                                       onclick="window.open('download1.php?file=<?php echo $link; ?>', 'download', 'status=0');"
-                                        ></a>
-										<a href="download1.php?file=<?php echo $link; ?>" download></a>
+								    <a href="<?php echo $link; ?>"><figure><img src="<?php echo $link; ?>" alt="<?php echo $name;?>"></figure></a>
+									<br/><a  class="btn btn-warning"  href="delete.php?id=<?php echo $row['media_id'];?>&page=images">Delete</a>
+									
+                                    
+                                    
 								</div>
 								
-								
-								
-
 								<?php
 								}
 								?>
@@ -254,7 +247,9 @@ QUT
 
 		</div> <!-- #site-content -->
 
-
+		<script src="js/jquery-1.11.1.min.js"></script>		
+		<script src="js/plugins.js"></script>
+		<script src="js/app.js"></script>
 		
 	</body>
 
