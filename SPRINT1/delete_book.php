@@ -1,5 +1,5 @@
 <?php 
-include('admin/database_connection.php');
+include('database_connection.php');
 
 $id1 = $_GET['id']; 
 /*$id = $_GET['id1'];*/ 
