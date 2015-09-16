@@ -45,6 +45,7 @@
 				<div style="float:right; position:relative;margin-top:-5.5%; margin-right:5%;">
 					
 					<a href="registration.php" class="btn btn-warning">Sign Up</a>
+					<a href="admin/login.php" class="btn btn-warning">Login as Admin</a>
 
 					
 				</div>
