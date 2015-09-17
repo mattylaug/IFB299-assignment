@@ -97,6 +97,7 @@ $row = mysql_fetch_array($sql);
 							<li class="menu-item "><a href="blog.php">Videos</a></li>
 							<li class="menu-item current-menu-item"><a href="about.php">Ebooks</a></li>
 							<li class="menu-item"><a href="gallery.php">Gallery</a></li>
+							
 							<?php
 							}
 							else{}
@@ -233,7 +234,7 @@ $row = mysql_fetch_array($sql);
                                             <td><?php echo $name;?></td>
                                             <td><?php echo $author;?></td>
                                             <td><?php echo $description;?></td>
-                                            <td class="center"><a target="_blank"href="<?php echo $book_path_name; ?>" class="btn btn-warning">View</a></td>
+                                            <td class="center"><a target="_blank"href="<?php echo $book_path_name; ?>" class=""></a></td>
 											
 											
 											<?php
