@@ -49,7 +49,11 @@ CREATE TABLE IF NOT EXISTS `media` (
   `data_type` varchar(255) NOT NULL,
   `data_link` varchar(255) NOT NULL,
   `data_size` float NOT NULL,
+  `media_path` varchar(255) NOT NULL DEFAULT '/main/',
+  `to_move` int(11) NOT NULL DEFAULT '0',
   `banned` int(11) NOT NULL DEFAULT '0'
+  
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -68,14 +72,16 @@ CREATE TABLE IF NOT EXISTS `registered_users` (
   `banned` int(11) NOT NULL DEFAULT '0',
   `data_uploaded` float NOT NULL,
   `data_downloaded` float NOT NULL,
-  `image_link` varchar(255) NOT NULL
+  `image_link` varchar(255) NOT NULL,
+  `current_directory` varchar(255) NOT NULL DEFAULT '/main/'
+  
 ) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `registered_users`
 --
 
-INSERT INTO `registered_users` (`user_id`, `first_name`, `last_name`, `password`, `email`, `status`, `banned`, `data_uploaded`, `data_downloaded`, `image_link`) VALUES
+INSERT INTO `registered_users` (`user_id`, `first_name`, `last_name`, `password`, `email`, `status`, `banned`, `data_uploaded`, `data_downloaded`, `image_link`, `current_directory`) VALUES
 (40, 'adnan', 'adnan', '202cb962ac59075b964b07152d234b70', 'adnanbih19962@gmail.com', 'active', 0, 9.32664, 0, ''),
 (42, 'test', 'test', '202cb962ac59075b964b07152d234b70', 'test@mail.com', 'Inactive', 0, 0, 0, '');
 
