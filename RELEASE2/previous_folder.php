@@ -1,27 +1,6 @@
 <?php
-session_start();
-include 'db.php';
-$id = @$_SESSION['id'];
-$name = @$_SESSION['name'];
-$email = @$_SESSION['email'];
-$current_directory = mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0];
-$sql = mysql_query("SELECT status FROM registered_users WHERE user_id ='$id'");
-
-$row = mysql_fetch_array($sql);
-			
-		$status = $row['status'];
-	 if($status === 'Inactive')
-			 
-				 {
-						$message = "Please activate your account, An activation link is sent to <b>$email</b>";
-				}
-			else
-				 {
-				// Do Nothing
-				}
-
-
-function DirectoryStringWithCurrentFolderRemoved(){
+	session_start();
+	include 'db.php';
 	$id = @$_SESSION['id'];
 	$name = @$_SESSION['name'];
 	$email = @$_SESSION['email'];
