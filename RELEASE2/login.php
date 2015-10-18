@@ -13,14 +13,14 @@
 		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<!-- Loading main css file -->
 		<link rel="stylesheet" href="style.css">
-
+		
 		<!--[if lt IE 9]>
-		<script src="js/ie-support/html5.js"></script>
-		<script src="js/ie-support/respond.js"></script>
+			<script src="js/ie-support/html5.js"></script>
+			<script src="js/ie-support/respond.js"></script>
 		<![endif]-->
-
+		
 	</head>
-
+	
 	<body>
 		
 		<div id="site-content">
@@ -46,7 +46,7 @@
 					
 					<a href="registration.php" class="btn btn-warning">Sign Up</a>
 					<a href="admin/login.php" class="btn btn-warning">Login as Admin</a>
-
+					
 					
 				</div>
 				
@@ -57,34 +57,34 @@
 					<div class="container">
 						<center><h2 class="page-title">Login Form</h2></center>
 						<div class="row">
-						<div class="col-md-3">
-						</div>
+							<div class="col-md-3">
+							</div>
 							<div class="col-md-6">
-							<center>
-							<?php
-							$message =@$_GET['message'];
-							if(isset($message)) { ?>
-							<div class="alert alert-danger alert-dismissible" role="alert">
-							<?php echo $message; ?></div>
-							<?php } ?>
-							</center>
-							<center>
-							<?php
-							$message1 =@$_GET['message1'];
-							if(isset($message1)) { ?>
-							<div class="alert alert-success alert-dismissible" role="alert">
-							<?php echo $message1; ?></div>
-							<?php } ?>
-							</center>
+								<center>
+									<?php
+										$message =@$_GET['message'];
+										if(isset($message)) { ?>
+										<div class="alert alert-danger alert-dismissible" role="alert">
+										<?php echo $message; ?></div>
+									<?php } ?>
+								</center>
+								<center>
+									<?php
+										$message1 =@$_GET['message1'];
+										if(isset($message1)) { ?>
+										<div class="alert alert-success alert-dismissible" role="alert">
+										<?php echo $message1; ?></div>
+									<?php } ?>
+								</center>
 								<form  action="abc.php" method="post" class="contact-form">
 									
 									<input type="email"  name="email" style="width:100%;"  placeholder="Email Address">
 									<input type="password" name="password" style="width:100%;" placeholder="Password">
-								
+									
 									<br>
-													  
+									
 									<input type="submit" name="submit" value="Login">
-
+									
 								</form>
 								
 								
@@ -93,15 +93,15 @@
 						</div>
 					</div>
 				</div> <!-- .testimonial-section -->
-
+				
 				
 			</main> <!-- .main-content -->
-
+			
 			<footer class="site-footer">
 				<div class="container">
 					<img src="dummy/logo-footer.png" alt="Site Name">
 					
-QUT
+					QUT
 					
 					<form action="#" class="newsletter-form">
 						<input type="email" placeholder="Enter your email to join newsletter...">
@@ -118,14 +118,14 @@ QUT
 					<p class="copy">LENNYFACE</p>
 				</div>
 			</footer> <!-- .site-footer -->
-
+			
 		</div> <!-- #site-content -->
-
+		
 		<script src="js/jquery-1.11.1.min.js"></script>	
 		QUT
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
 		
 	</body>
-
+	
 </html>
