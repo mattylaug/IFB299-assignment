@@ -63,59 +63,47 @@
 		header("Location:blog.php?message1=Folder name cannot have forwardslash.");
 		}				 
 	*/
-	$id1 = $_GET['id']; 
-	$name= $_POST['name'];
+	$media_id = $_GET['id']; 
+	$name= $_GET['name'];
+	$file_size= $_GET['file_size'];
 	
-	$is_move = mysql_query("SELECT to_move FROM 'media' WHERE media_id = '$id1'");
-	//$folder_directory = "SELECT to_move FROM 'media' WHERE media_id = '$id'";
-	
+	$is_move = mysql_query("SELECT to_move FROM 'media' WHERE media_id = '$media_id' AND user_id = '$id'");
 	$new_path = $current_directory.$name.'/';
-	
 	$page = $_GET['page'];
 	
-	if($page === 'mp3'){
-		$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp3')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
-		
-		$sql = "UPDATE 'media' SET 'to_move' = '0' WHERE to_move = 1 AND 'data_type' =('.mp3')"; 
-		mysql_query($sql);
+	
+	$a = explode('/',$current_directory);
+	$folder_name =$a[sizeof($a)-2]; 
+	$size_of_folder = $file_size + mysql_query("SELECT data_size FROM media WHERE name = '$name' AND data_type = '.videofolder' AND user_id = '$id'");  //For folder size. Gets new folder size by adding size of file to be added.
+	
+	$sql = "UPDATE media SET media_path = '$new_path' WHERE to_move = 1 AND data_type =('.mp4' || '.wma' || '.avi') AND user_id = '$id'"; 
+	
+	if(mysql_query($sql)){
+		mysql_query("UPDATE media'SET to_move = '0' WHERE to_move = 1 AND 'data_type' =('.mp4' || '.wma' || '.avi') AND user_id = '$id'");
+		mysql_query("UPDATE media SET data_size = '$size_of_folder' WHERE to_move = 1 AND 'data_type' =('.mp4' || '.wma' || '.avi') AND user_id = '$id'");
+		header("Location:blog.php?message=Media moved to folder successfully");
 	}
+	header("Location:blog.php?message='$name' '$new_path'");
 	
-	else if($page === 'video'){
-		$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
+	
+	/*  The following statements check which page
+		if($page === 'mp3'){
 		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
+		}
 		
-		$sql = "UPDATE 'media' SET 'to_move' = '0' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-		mysql_query($sql);
-	}
-	
-	else if($page === 'images'){
-		$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.jpeg')"; 
+		else if($page === 'video'){
 		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
+		}
 		
-		$sql = "UPDATE 'media' SET 'to_move' = '0' WHERE to_move = 1 AND 'data_type' =('.jpeg')"; 
-		mysql_query($sql);
-	}
-	
-	else{
-		$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.pdf')"; 
+		else if($page === 'images'){
 		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
+		}
 		
-		$sql = "UPDATE 'media' SET 'to_move' = '0' WHERE to_move = 1 AND 'data_type' =('.pdf')"; 
-		mysql_query($sql);
-	}
+		else{
+		
+		}
+	*/
 	
-	
-	$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-	
-	
+	//$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
 ?>
 

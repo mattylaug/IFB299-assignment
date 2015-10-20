@@ -1,18 +1,29 @@
 <?php
 	session_start ();
 	include 'db.php';
+	
 	$id = @$_SESSION ['id'];
 	$name = @$_SESSION ['name'];
 	$email = @$_SESSION ['email'];
 	$banned = @$_SESSION ['banned'];
-	$current_directory = mysql_fetch_row ( mysql_query ( "SELECT current_directory FROM registered_users WHERE user_id = '$id'" ) ) [0];
-	// $current_directory = mysql_fetch_object(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"));
+	$page = 'Video';
+	//mysql_fetch_row ( mysql_query ( "SELECT current_directory FROM registered_users WHERE user_id = '$id'" ) ) [0];
+	
 	$sql = mysql_query ( "SELECT status,banned FROM registered_users WHERE user_id ='$id'" );
 	
 	$row = mysql_fetch_array ( $sql );
 	
 	$status = $row ['status'];
 	$banned = $row ['banned'];
+	
+	
+	if(@$_SESSION ['current_directory']== null || ''){ //Checks current directory is valid
+		@$_SESSION ['current_directory'] = '/main/';
+		$current_directory = '/main/';
+		
+		} else{
+		$current_directory = @$_SESSION ['current_directory'];
+	}
 	
 	if ($status === 'Inactive') 
 	
@@ -25,25 +36,31 @@
 		} else {
 		// Do Nothing
 	}
-	function ToMove($id1) {
-		$is_move = "SELECT 'to_move' FROM 'media' WHERE media_id = '$id1'";
+	
+	function ToMove() {
+		$id1 = $_GET['move_id'];
+		$is_move = mysql_query("SELECT to_move FROM 'media' WHERE media_id = '$id1' AND user_id = '" . $_SESSION ['id'] . "'");
 		
 		if ($is_move == '0') {
-			$sql = "UPDATE 'media' SET 'to_move' = 1 WHERE media_id='$id1'";
+			$sql = "UPDATE 'media' SET 'to_move' = 1 WHERE media_id='$id1' AND user_id = '" . $_SESSION ['id'] . "' ";
 			
-			if (mysql_query ( $query_insert ))
-			header ( "Location:blog.php?message=Folder added successfully" );
+			mysql_query( $sql );
 			} else {
-			$sql = "UPDATE 'media' SET 'to_move' = 0 WHERE media_id='$id1'";
 			
-			if (mysql_query ( $query_insert ))
-			header ( "Location:blog.php?message=Folder added successfully" );
+			$sql1 = "UPDATE 'media' SET 'to_move' = 0 WHERE media_id='$id1' AND user_id = '" . $_SESSION ['id'] . "' ";
+			myql_query($sql1);
+			header ( "Location:blog.php?message=Ready to move." );
 		}
+	}
+	if(isset($_GET['move_id'])){
+		ToMove();
 	}
 	
 ?>
 <!DOCTYPE html>
 <html lang="en">
+	
+	
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -201,57 +218,55 @@
 						<form name="audio_form" id="audio_form" action="upload_video.php"
 						method="post" class="contact-form" enctype="multipart/form-data">
 							<input name="name" id="" style="width: 100%;" type="text"
-							placeholder="Enter Name" /> <input type="file" name="video_file"
+							placeholder="Enter Name" /> 
+							
+							<input type="file" name="video_file"
 							type="text" style="width: 100%;" id="video_file" /> <input
 							type="submit" name="Submit" id="Submit" value="Upload" />
 							
 							<!--Form for creating folder -->
 							
-							<!--<form name="folder_form" id="folder_form" action="create_folder.php" method="post"  class="contact-form" enctype="multipart/form-data">
-								<input name="name" id="" style="width:100%;" type="text" placeholder="Enter Folder Name"/>
+							<div class="col-md-6">
+								<h2 class="page-title">Create Folder</h2>
+								<center>
+									<?php
+										$message1 = @$_GET ['message1'];
+										if (isset ( $message1 )) {
+										?>
+										<div class="alert alert-danger alert-dismissible" role="alert">
+										<?php echo $message1; ?></div>
+									<?php } ?>
+								</center>
+								<center>
+									<?php
+										$message = @$_GET ['message'];
+										if (isset ( $message )) {
+										?>
+										<div class="alert alert-success alert-dismissible"
+										role="alert">
+										<?php echo $message; ?></div>
+									<?php } ?>
+								</center>
 								
-								<input type="submit" name="Folder"  id="Folder" value="Create folder"/>
-							-->
+								<!--Form for creating folder -->
+								
+								<form name="folder_form" id="folder_form" action="create_folder.php"
+								method="post" class="contact-form" enctype="multipart/form-data">
+									<input name="name" id="" style="width: 100%;" type="text"
+									placeholder="Enter Folder Name" /> <input type="submit"
+									name="Folder" id="Folder" value="Create folder" />
+									
+								</form>
+								
+								
+							</div>
 							
 						</form>
 						
 						
 					</div>
 					
-					<div class="col-md-6">
-						<h2 class="page-title">Create Folder</h2>
-						<center>
-							<?php
-								$message1 = @$_GET ['message1'];
-								if (isset ( $message1 )) {
-								?>
-								<div class="alert alert-danger alert-dismissible" role="alert">
-								<?php echo $message1; ?></div>
-							<?php } ?>
-						</center>
-						<center>
-							<?php
-								$message = @$_GET ['message'];
-								if (isset ( $message )) {
-								?>
-								<div class="alert alert-success alert-dismissible"
-								role="alert">
-								<?php echo $message; ?></div>
-							<?php } ?>
-						</center>
-						
-						<!--Form for creating folder -->
-						
-						<form name="folder_form" id="folder_form" action="create_folder.php"
-						method="post" class="contact-form" enctype="multipart/form-data">
-							<input name="name" id="" style="width: 100%;" type="text"
-							placeholder="Enter Folder Name" /> <input type="submit"
-							name="Folder" id="Folder" value="Create folder" />
-							
-						</form>
-						
-						
-					</div>
+					
 				</div>	
 				<?php
 				}
@@ -264,7 +279,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<center>
-						<h2 class="page-title">Video Library. Current directory: <?php echo $current_directory; //mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0]; ?></h2>
+						<h2 class="page-title">Video Library. Current directory: <?php echo @$_SESSION ['current_directory']; //mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0]; ?></h2>
 					</center>
 					
 					<!-- Advanced Tables -->
@@ -292,7 +307,7 @@
 									<tbody>
 										<?php
 											
-											$query = mysql_query ( "select * from media where banned = '0' and (data_type ='.mp4' || data_type ='.wma' || data_type ='.avi' || data_type = '.videofolder') and user_id = '" . $_SESSION ['id'] . "' and media_path = '$current_directory' " ); //
+											$query = mysql_query ( "select * from media where banned = '0' and (data_type ='.mp4' || data_type ='.wma' || data_type ='.avi' || data_type = '.videofolder') and user_id = '" . $_SESSION ['id'] . "' and media_path = '" . $_SESSION ['current_directory'] . "' " ); //
 											if (! $query) { // add this check.
 												die ( 'Invalid query: ' . mysql_error () );
 											}
@@ -303,15 +318,15 @@
 												$size = $row ['data_size'];
 												$type = $row ['data_type'];
 												$data_link = $row ['data_link'];
+												$to_move = $row ['to_move'];
 												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
 												<td><?php echo $size;?>Mb</td>
 												<td><?php echo $type;?></td>
-												<td class="center"><a target="_blank"
-													href="play_mp4.php?id=<?php echo $data_link; ?>"
-												class="btn btn-warning">Play</a></td>
+												
+												<td class="center"><a target="_blank" href="play_mp4.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
 												
 												
 												<?php
@@ -332,46 +347,48 @@
 													<?php
 														} else {
 													?>
-													<td class="center"><a target="_blank"
-														class="btn btn-warning" on_click=''
-													href="<?php echo $data_link;?>" download>Download</a></td>
-													<td class="center"><a class="btn btn-warning"
-													href="delete.php?id=<?php echo $row['media_id'], $row['current_directory'];?>&page=video">Delete</a></td>
-													<?php
-													}
+													<td class="center"><a target="_blank" class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
 													
-													if ($type == ".videofolder") {
-														// Is a folder
-													?>
-													<td class="center"><a class="btn btn-warning"
-													href='move_to_folder.php?id=<?php echo $row['media_id'];?>'>Move to</a></td>
-													
-													<td class="center"><a class="btn btn-warning"
-													href='open_folder.php?page=video&name=<?php echo $name ?>'>Open Folder</a></td>
 													<?php
-														} else {
-														// Is not a folder
-													?>
-													<td class="center">
-														<div class="checkbox">
-															<label><input type="checkbox" value="" onclick="<?php ToMove($id1); ?>" href=''>Move</label>
-														</div>
-													</td>
-													<?php
-													}
-												?>
-												
-												
-												
-											</tr>
-											
+														if ($type == ".videofolder") {
+															// Is a folder
+														?>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $row['media_id']?>&page=video&media_path=<?php echo $row['media_path'];?>&name=<?php echo $row['name'];?>">Delete</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=video&file_size = <?php echo $file_size;?>'>Move to</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=video'>Open Folder</a></td>
+														<?php
+															} else {
+															// Is not a folder
+														?>
+														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id']?>&page=video">Delete</a></td>
+														<?php
+															if($to_move=='0'){
+																//When button is clicked, sets to_move on media file in database to 1.
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>To Move <?php echo $id1;?></a></td>
+															
+															
+															<?php
+															}
+															else{
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>Ready To Move <?php echo $id1;?></a></td>
+															
+															<?php
+															}
+															
+														}
+													} 
+												?>		
 											<?php
 											}
 										?>
 									</tbody>
 								</table>
 								
-								<a class="btn btn-warning" href='previous_folder.php?page=video'>Previous Folder</a>
+								<a class="btn btn-warning" href='previous_folder.php?page=<?php echo $page ?>'>Previous Folder</a>
 							</div>
 							
 						</div>
@@ -423,6 +440,8 @@
 		</div>
 		<!-- #site-content -->
 		
+		
+		
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
@@ -445,4 +464,4 @@
 		
 	</body>
 	
-</html>																		
+</html>																												

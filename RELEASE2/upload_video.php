@@ -91,15 +91,32 @@
 						
 						if(move_uploaded_file($_FILES['video_file']['tmp_name'], $target_path)) {
 							
-							//insert query if u want to insert file
 							
-							
-							
-							//echo filesize($new_file_name);
-							$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','$ext','$target_path','$file_size')";
-							
-							if(mysql_query($query_insert))
-							header("Location:blog.php?message=Video uploaded successfully");
+								//insert query if u want to insert file
+								$query_insert_users="UPDATE `registered_users` SET `data_uploaded`='$total_data' where user_id='$id'";
+								mysql_query($query_insert_users);
+								
+								
+								
+								
+								//echo filesize($new_file_name);
+								
+								
+								mysql_query($query_insert_users);
+								
+								//Below is code for folder size
+
+								$a = explode('/',$current_directory);
+								$folder_name =$a[sizeof($a)-2]; 
+								
+								$size_of_folder = $file_size + mysql_query("SELECT data_size FROM media WHERE name = '$folder_name' AND data_type = '.videofolder'");
+								
+								mysql_query("INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`, `media_path`) VALUES ($id,'$name','$ext','$target_path','$file_size','$current_directory')");
+								
+								$query_insert="UPDATE media SET data_size='$size_of_folder' WHERE user_id='$id' AND name = '$folder_name'";
+								if(mysql_query($query_insert)){
+									header("Location:blog.php?message=Video uploaded successfully");
+								}
 							
 						}
 						//following function will move uploaded file to audios folder. 
@@ -125,7 +142,7 @@
 			$total_data=$data_uploaded+$file_size;
 			echo $space = 10 - $data_uploaded;
 			if($total_data>10.00){
-				header("Location:download.php?message1=Can't upload,Space available is $space and file size is $file_size.");
+				header("Location:blog.php?message1=Can't upload,Space available is $space and file size is $file_size.");
 			}
 			else{
 				
@@ -141,7 +158,7 @@
 					else{
 						
 						
-						$check = mysql_query("select name from media where name ='$name' AND data_type='$ext'");
+						$check = mysql_query("select name from media where name ='$name' AND data_type='$ext' and user_id = '".$_SESSION['id']."'");
 						$SongCount = mysql_num_rows($check);
 						
 						if($SongCount>0)
@@ -170,12 +187,20 @@
 								
 								
 								//echo filesize($new_file_name);
-								$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`, `media_path`) VALUES ($id,'$name','$ext','$target_path','$file_size','$current_directory')";
+								
 								
 								mysql_query($query_insert_users);
 								
+								//Below is code for folder size
+
+								$a = explode('/',$current_directory);
+								$folder_name =$a[sizeof($a)-2]; 
 								
+								$size_of_folder = $file_size + mysql_query("SELECT data_size FROM media WHERE name = '$folder_name' AND data_type = '.videofolder'");
 								
+								mysql_query("INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`, `media_path`) VALUES ($id,'$name','$ext','$target_path','$file_size','$current_directory')");
+								
+								$query_insert="UPDATE media SET data_size='$size_of_folder' WHERE user_id='$id' AND name = '$folder_name'";
 								if(mysql_query($query_insert)){
 									header("Location:blog.php?message=Video uploaded successfully");
 								}
