@@ -2,14 +2,14 @@
 	//include('dbcontroller.php');
 	session_start();
 	include('database_connection.php');
-	
-	$media_id = $_GET['id']; 
-	/*$id = $_GET['id1']; */
-	$page = $_GET['page'];
-	$size = $_GET['size'];
 	$id= $_SESSION ['id'];
 	
-	mysql_query("DELETE FROM `media` WHERE media_id='$media_id' AND user_id = '$id'");
+	$media_id = $_GET['id']; 
+	$page = $_GET['page'];
+	$size = $_GET['size'];
+	
+	
+	mysql_query("DELETE FROM `media` WHERE media_id = '$media_id' AND user_id = '$id'");
 
 	$uploaded = mysql_fetch_row(mysql_query("SELECT data_uploaded FROM registered_users WHERE user_id = '$id'"))[0];
 	

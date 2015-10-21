@@ -320,6 +320,7 @@
 												$type = $row ['data_type'];
 												$data_link = $row ['data_link'];
 												$to_move = $row ['to_move'];
+												$media_path = $row['media_path']
 												
 											?>
 											<tr class="odd gradeX">
@@ -354,7 +355,7 @@
 														if ($type == ".videofolder") {
 															// Is a folder
 														?>
-														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $row['media_id']?>&page=video&media_path=<?php echo $row['media_path'];?>&name=<?php echo $row['name'];?>&size=<?php echo $size;?>">Delete </a></td>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=video&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete  <?php echo $id1;?></a></td>
 														
 														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=video&file_size = <?php echo $size;?>'>Move to</a></td>
 														
@@ -363,7 +364,7 @@
 															} else {
 															// Is not a folder
 														?>
-														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id']?>&page=video&size=<?php echo $size;?>">Delete</a></td>
+														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id'];?>&page=video&size=<?php echo $size;?>">Delete</a></td>
 														<?php
 															if($to_move=='0'){
 																//When button is clicked, sets to_move on media file in database to 1.
