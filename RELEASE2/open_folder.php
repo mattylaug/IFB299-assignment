@@ -15,52 +15,14 @@
 		$new_path = $current_dir.$name.'/';
 		
 		$_SESSION['current_directory'] = $new_path;
-		header("Location:blog.php?message=Current Directory is now: $new_path");
+		
+		SendMessage("Opened folder.",$page);
 		
 	}
 	
 	if (isset($_GET['page']) AND isset($_GET['name'])) {
 		CreateNewPathAndChangePath($_GET['name'],$_GET['page']);
-    }
-	
-	
-	/*
-		$sql = "UPDATE registered_users SET current_directory = '$new_path' WHERE user_id = '$id'"; 
-		
-		mysql_query($sql);
-		
-		
-		
-		if($page === 'mp3'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.mp3')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Current Directory: $new_path");
-		}
-		
-		else if($page === 'vid'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Current Directory: $new_path");
-		}
-		
-		else if($page === 'images'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.jpeg')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
-		}
-		
-		else{
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.pdf')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
-		}
-	*/
-	//$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-	
+	}
 	
 	
 ?>
@@ -68,15 +30,15 @@
 	
 	function GetImageExtension($file_type)
 	{
-	if(empty($file_type)) return false;
-	
-	switch($file_type)
-	{
-		case 'video/mp4': return '.mp4'; break;
-		case 'video/wma': return '.wma'; break;
-		case 'video/avi': return '.avi'; break;
-		default: return false;
-	}	
+		if(empty($file_type)) return false;
+		
+		switch($file_type)
+		{
+			case 'video/mp4': return '.mp4'; break;
+			case 'video/wma': return '.wma'; break;
+			case 'video/avi': return '.avi'; break;
+			default: return false;
+		}	
 	}
 	
 	function IsValidFolderName(){
@@ -91,6 +53,22 @@
 			}
 		}
 		return true;
+	}
+	
+	function SendMessage($message,$page){
+		if($page === 'audio'){
+			header("Location:download.php?message='$message1'");
+		}
+		else if($page === 'video'){
+			
+			header("Location:blog.php?message3='$message1'");
+		}
+		else if($page === 'gallery'){
+			header("Location:gallery.php?message='$message1'");
+		} 
+		else{
+			header("Location:library.php?message='$message1'");
+		}
 	}
 	
 ?>

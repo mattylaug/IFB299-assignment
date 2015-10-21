@@ -25,7 +25,7 @@
 	
 	function IsValidFolderName(){
 		
-		$name = $_GET['name'];
+		$name = $_GET['foldername'];
 		$namelen = strlen( $name );
 		
 		for( $i = 0; $i <= $namelen; $i++ ) {
@@ -46,45 +46,36 @@
 	}
 	
 	function CreateFolder(){
-			//$ext= GetImageExtension($_FILES['video_file']['type']);
-			$current_directory = @$_SESSION['current_directory'];
-			$name= $_POST['name'];
-			$id = @$_SESSION['id'];
+		$current_directory = @$_SESSION['current_directory'];
+		$name= $_POST['foldername'];
+		$id = @$_SESSION['id'];
+		$page = $_GET['page'];
+		
+		$file_size=0;
+		$ext = '.'.$page.'folder';
+		
+		$new_file_name=date("d-m-Y")."-".time().$ext;
+		
+		$check = mysql_query("select name from media where name ='$name' AND data_type='$ext' and user_id = '".$_SESSION['id']."'");
+		$SongCount = mysql_num_rows($check);
+		
+		if($SongCount>0)
+		{
+			header("Location:blog.php?message1=This file already exists.");
 			
-			$file_size=0;
-			$ext= '.videofolder';
-			$new_file_name=date("d-m-Y")."-".time().$ext;
+		}
+		if($SongCount>0)
+		{
+			header("Location:blog.php?message1=This file already exists.");
 			
-			$check = mysql_query("select name from media where name ='$name' AND user_id = '$id'");
-			$SongCount = mysql_num_rows($check);
-			
-			if($SongCount>0)
-			{
-				header("Location:blog.php?message1=This file already exists.");
-				
-			}
-			$target_path = "videos/".$new_file_name;
-			
-			
-			//insert query if u want to insert file
-			//$query_insert_users="UPDATE `registered_users` SET `data_uploaded`='$total_data' where user_id='$id'";
-			//mysql_query($query_insert_users);
-			//echo filesize($new_file_name);
-			
-			
-			
-			
+		} 
+		else{
+			$target_path = "folders/".$new_file_name;
 			$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','$ext','$target_path','$file_size')";
-			mysql_query($query_insert);
-			
 			$query="UPDATE media SET media_path = '$current_directory' WHERE user_id = '$id' AND name = $name";
-			if(mysql_query($query))
+			if(mysql_query($query AND mysql_query($query_insert)))
 			header("Location:blog.php?message=Folder created successfully.");
-			
-			header("Location:blog.php?message= '$name' '$current_directory'");
-			
-			
-			//following function will move uploaded file to audios folder. 	
+		}
 	}
 ?>
 

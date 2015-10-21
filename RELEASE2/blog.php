@@ -6,7 +6,7 @@
 	$name = @$_SESSION ['name'];
 	$email = @$_SESSION ['email'];
 	$banned = @$_SESSION ['banned'];
-	$page = 'Video';
+	$page = 'video';
 	//mysql_fetch_row ( mysql_query ( "SELECT current_directory FROM registered_users WHERE user_id = '$id'" ) ) [0];
 	
 	$sql = mysql_query ( "SELECT status,banned FROM registered_users WHERE user_id ='$id'" );
@@ -39,7 +39,7 @@
 	
 	function ToMove() {
 		$id1 = $_GET['move_id'];
-		$is_move = mysql_query("SELECT to_move FROM 'media' WHERE media_id = '$id1' AND user_id = '" . $_SESSION ['id'] . "'");
+		$is_move = mysql_fetch_row(mysql_query("SELECT to_move FROM 'media' WHERE media_id = '$id1' AND user_id = '" . $_SESSION ['id'] . "'"));
 		
 		if ($is_move == '0') {
 			$sql = "UPDATE 'media' SET 'to_move' = 1 WHERE media_id='$id1' AND user_id = '" . $_SESSION ['id'] . "' ";
@@ -230,21 +230,21 @@
 								<h2 class="page-title">Create Folder</h2>
 								<center>
 									<?php
-										$message1 = @$_GET ['message1'];
-										if (isset ( $message1 )) {
+										$message2 = @$_GET ['message2'];
+										if (isset ( $message2 )) {
 										?>
 										<div class="alert alert-danger alert-dismissible" role="alert">
-										<?php echo $message1; ?></div>
+										<?php echo $message2; ?></div>
 									<?php } ?>
 								</center>
 								<center>
 									<?php
 										$message = @$_GET ['message'];
-										if (isset ( $message )) {
+										if (isset ( $message3 )) {
 										?>
 										<div class="alert alert-success alert-dismissible"
 										role="alert">
-										<?php echo $message; ?></div>
+										<?php echo $message3; ?></div>
 									<?php } ?>
 								</center>
 								
@@ -252,7 +252,8 @@
 								
 								<form name="folder_form" id="folder_form" action="create_folder.php"
 								method="post" class="contact-form" enctype="multipart/form-data">
-									<input name="name" id="" style="width: 100%;" type="text"
+									
+									<input name="foldername" id="" style="width: 100%;" type="text"
 									placeholder="Enter Folder Name" /> <input type="submit"
 									name="Folder" id="Folder" value="Create folder" />
 									
@@ -279,7 +280,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<center>
-						<h2 class="page-title">Video Library. Current directory: <?php echo @$_SESSION ['current_directory']; //mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0]; ?></h2>
+						<h2 class="page-title">Video Library. Current directory: <?php echo @$_SESSION ['current_directory'];  ?></h2>
 					</center>
 					
 					<!-- Advanced Tables -->
@@ -353,28 +354,28 @@
 														if ($type == ".videofolder") {
 															// Is a folder
 														?>
-														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $row['media_id']?>&page=video&media_path=<?php echo $row['media_path'];?>&name=<?php echo $row['name'];?>">Delete</a></td>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $row['media_id']?>&page=video&media_path=<?php echo $row['media_path'];?>&name=<?php echo $row['name'];?>&size=<?php echo $size;?>">Delete </a></td>
 														
-														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=video&file_size = <?php echo $file_size;?>'>Move to</a></td>
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=video&file_size = <?php echo $size;?>'>Move to</a></td>
 														
 														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=video'>Open Folder</a></td>
 														<?php
 															} else {
 															// Is not a folder
 														?>
-														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id']?>&page=video">Delete</a></td>
+														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id']?>&page=video&size=<?php echo $size;?>">Delete</a></td>
 														<?php
 															if($to_move=='0'){
 																//When button is clicked, sets to_move on media file in database to 1.
 															?>
-															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>To Move <?php echo $id1;?></a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>To Move</a></td>
 															
 															
 															<?php
 															}
 															else{
 															?>
-															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>Ready To Move <?php echo $id1;?></a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>Ready To Move </a></td>
 															
 															<?php
 															}
@@ -388,7 +389,7 @@
 									</tbody>
 								</table>
 								
-								<a class="btn btn-warning" href='previous_folder.php?page=<?php echo $page ?>'>Previous Folder</a>
+								<a class="btn btn-warning" href='previous_folder.php?page=video'>Previous Folder</a>
 							</div>
 							
 						</div>

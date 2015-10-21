@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `e_books` (
   `description` varchar(200) NOT NULL,
   `book_path_name` varchar(200) NOT NULL,
   `banned` int(1) NOT NULL DEFAULT '0',
+  `media_path` varchar(255) NOT NULL DEFAULT '/main/',
+  `to_move` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -70,10 +72,10 @@ CREATE TABLE IF NOT EXISTS `registered_users` (
   `email` varchar(55) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'Inactive',
   `banned` int(11) NOT NULL DEFAULT '0',
-  `data_uploaded` float NOT NULL,
+  `data_uploaded` float NOT NULL DEFAULT '0',
   `data_downloaded` float NOT NULL,
-  `image_link` varchar(255) NOT NULL,
-  `current_directory` varchar(255) NOT NULL DEFAULT '/main/'
+  `image_link` varchar(255) NOT NULL
+
   
 ) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
