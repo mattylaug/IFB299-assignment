@@ -8,7 +8,7 @@
 	
 	mysql_query("DELETE FROM `e_books` WHERE id='$id1'");
 	
-	if($page === 'book'){
+	if($page === 'ebook'){
 		header("Location: about.php");
 	}
 	else{
