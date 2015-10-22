@@ -1,35 +1,15 @@
 <?php
 	session_start();
 	include 'db.php';
-	$id = @$_SESSION['id'];
-	$name = @$_SESSION['name'];
-	$email = @$_SESSION['email'];
-	$current_directory = mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0];
-	$sql = mysql_query("SELECT status FROM registered_users WHERE user_id ='$id'");
-	
-	$row = mysql_fetch_array($sql);
-	
-	$status = $row['status'];
-	if($status === 'Inactive')
-	
-	{
-		$message = "Please activate your account, An activation link is sent to <b>$email</b>";
-	}
-	else
-	{
-		// Do Nothing
-	}
-	
 	
 	function DirectoryStringWithCurrentFolderRemoved(){
-		$id = @$_SESSION['id'];
-		$current_directory = mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0];
-		$strlen = strlen($current_directory)-1; //0 indexed
+		$current_dir = @$_SESSION['current_directory'];
+		$strlen = strlen($current_dir)-1; //0 indexed
 		
 		for( $i = $strlen-1; $i >4 ; $i-- ) {
-			$char = substr( $current_directory, $i, 1 );
+			$char = substr( $current_dir, $i, 1 );
 			if($char == '/'){
-				return substr($current_directory,0,$i+1);
+				return substr($current_dir,0,$i+1);
 			}
 		}
 		return null;
@@ -67,53 +47,56 @@
 		return true;
 	}
 	
-	
-	
-?>
-
-<?php  
-	if($current_directory != '/main/'){
-		/*if(false) //!IsValidFolderName()
-			{
-			header("Location:blog.php?message1=Folder name cannot have forwardslash.");
-			}				 
-		*/
-		
-		//$folder_directory = "SELECT to_move FROM 'media' WHERE media_id = '$id'";
-		
-		$new_path = DirectoryStringWithCurrentFolderRemoved();
-		
+	function PreviousFolder(){
 		$page = $_GET['page'];
+
+		$current_directory = @$_SESSION['current_directory'];
 		
-		$sql = "UPDATE registered_users SET current_directory = '$new_path' WHERE user_id = '$id'"; 
-		
-		mysql_query($sql);
-		header("Location:blog.php?message=Current Directory: $new_path  $id");
-		/*
-			if($page === 'mp3'){
-			$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE id = '$id' "; 
+		if($current_directory != '/main/' ){ //Will not go back a folder if
+			/*if(false) //!IsValidFolderName()
+				{
+				header("Location:blog.php?message1=Folder name cannot have forwardslash.");
+				}				 
+			*/
 			
-			if(mysql_query($sql))
-			header("Location:blog.php?message=Media moved to $name folder successfully");
-			}
+			//$folder_directory = "SELECT to_move FROM 'media' WHERE media_id = '$id'";
 			
-			else if($page === 'video'){
-			$sql = "UPDATE registered_users SET current_directory = '$new_path' WHERE id = '$id'"; 
+			$new_path = DirectoryStringWithCurrentFolderRemoved();
+			$_SESSION["current_directory"] = $new_path;
+			header("Location:blog.php?message=Went back one directory to: $new_path");
+			$sql = "UPDATE registered_users SET current_directory = '$new_path' WHERE user_id = '$id'"; 
 			
-			if(mysql_query($sql))
-			header("Location:blog.php?message=Current Directory: $new_path");
-			}
+			if(mysql_query($sql)){
+				header("Location:blog.php?message=Current Directory: $new_path  $id");
+				SendMessage('Created Folder successfully.',$page);
+			} 
 			
-			else if($page === 'images'){
-			$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE id = '$id'"; 
 			
-			if(mysql_query($sql))
-			header("Location:blog.php?message=Media moved to $name folder successfully");
-			}
-		*/
-		
-		//$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1"; 
-		
+			
+			
+		} 
+		else{
+			SendMessage('Cannot go back from main directory.',$page);
+		}
+	}
+	
+	if (isset($_GET['page'])) {
+		PreviousFolder();
+	}	
+	
+	function SendMessage($message,$page){
+		if($page === 'audio'){
+			header("Location:download.php?message='$message'");
+		}
+		else if($page === 'video'){
+			
+			header("Location:blog.php?message='$message'");
+		}
+		else if($page === 'images'){
+			header("Location:gallery.php?message='$message'");
+			} else{
+			header("Location:library.php?message='$message'");
+		}
 	}
 ?>
 

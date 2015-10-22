@@ -1,24 +1,6 @@
 <?php
-	session_start();
+	session_start ();
 	include 'db.php';
-	$id = @$_SESSION['id'];
-	$name = @$_SESSION['name'];
-	$email = @$_SESSION['email'];
-	$current_directory = mysql_fetch_row(mysql_query("SELECT current_directory FROM registered_users WHERE user_id = '$id'"))[0];
-	$sql = mysql_query("SELECT status FROM registered_users WHERE user_id ='$id'");
-	
-	$row = mysql_fetch_array($sql);
-	
-	$status = $row['status'];
-	if($status === 'Inactive')
-	
-	{
-		$message = "Please activate your account, An activation link is sent to <b>$email</b>";
-	}
-	else
-	{
-		// Do Nothing
-	}
 	
 	/*if(false) //!IsValidFolderName()
 		{
@@ -27,47 +9,20 @@
 	*/
 	
 	//$folder_directory = "SELECT to_move FROM 'media' WHERE media_id = '$id'";
-	$name = $_GET['name'];
-	
-	$page = $_GET['page'];
-	
-	$new_path = $current_directory.$name.'/';
-	
-	$sql = "UPDATE registered_users SET current_directory = '$new_path' WHERE user_id = '$id'"; 
-	
-	mysql_query($sql);
-	header("Location:blog.php?message=Current Directory is now: $new_path");
-	
-	if($page === 'mp3'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.mp3')"; 
+	function CreateNewPathAndChangePath($name,$page){
+		$current_dir = @$_SESSION['current_directory'];
 		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Current Directory: $new_path");
+		$new_path = $current_dir.$name.'/';
+		
+		$_SESSION['current_directory'] = $new_path;
+		
+		SendMessage("Opened folder.",$page);
+		
 	}
 	
-	else if($page === 'vid'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Current Directory: $new_path");
+	if (isset($_GET['page']) AND isset($_GET['name'])) {
+		CreateNewPathAndChangePath($_GET['name'],$_GET['page']);
 	}
-	
-	else if($page === 'images'){
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.jpeg')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
-	}
-	
-	else{
-		$sql = "UPDATE 'registered_users' SET 'current_directory' = '$new_path' WHERE 'id' = '$id' AND 'data_type' =('.pdf')"; 
-		
-		if(mysql_query($sql))
-		header("Location:blog.php?message=Media moved to $name folder successfully");
-	}
-	
-	//$sql = "UPDATE 'media' SET 'media_path' = '$new_path' WHERE to_move = 1 AND 'data_type' =('.mp4' OR '.wma' OR '.avi')"; 
-	
 	
 	
 ?>
@@ -98,6 +53,22 @@
 			}
 		}
 		return true;
+	}
+	
+	function SendMessage($message,$page){
+		if($page === 'audio'){
+			header("Location:download.php?message='$message1'");
+		}
+		else if($page === 'video'){
+			
+			header("Location:blog.php?message='$message1'");
+		}
+		else if($page === 'gallery'){
+			header("Location:gallery.php?message='$message1'");
+		} 
+		else{
+			header("Location:library.php?message='$message1'");
+		}
 	}
 	
 ?>

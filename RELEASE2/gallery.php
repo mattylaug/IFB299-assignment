@@ -6,6 +6,7 @@
 	$email = @$_SESSION['email'];
 	$banned = @$_SESSION['banned'];
 	$sql = mysql_query("SELECT status,banned FROM registered_users WHERE user_id ='$id'");
+	$page = 'image';
 	
 	$row = mysql_fetch_array($sql);
 	
