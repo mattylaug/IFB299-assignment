@@ -224,44 +224,6 @@
 							type="text" style="width: 100%;" id="video_file" /> <input
 							type="submit" name="Submit" id="Submit" value="Upload" />
 							
-							<!--Form for creating folder -->
-							
-							<div class="col-md-6">
-								<h2 class="page-title">Create Folder</h2>
-								<center>
-									<?php
-										$message2 = @$_GET ['message2'];
-										if (isset ( $message2 )) {
-										?>
-										<div class="alert alert-danger alert-dismissible" role="alert">
-										<?php echo $message2; ?></div>
-									<?php } ?>
-								</center>
-								<center>
-									<?php
-										$message = @$_GET ['message'];
-										if (isset ( $message3 )) {
-										?>
-										<div class="alert alert-success alert-dismissible"
-										role="alert">
-										<?php echo $message3; ?></div>
-									<?php } ?>
-								</center>
-								
-								<!--Form for creating folder -->
-								
-								<form name="folder_form" id="folder_form" action="create_folder.php"
-								method="post" class="contact-form" enctype="multipart/form-data">
-									
-									<input name="foldername" id="" style="width: 100%;" type="text"
-									placeholder="Enter Folder Name" /> <input type="submit"
-									name="Folder" id="Folder" value="Create folder" />
-									
-								</form>
-								
-								
-							</div>
-							
 						</form>
 						
 						
@@ -269,6 +231,45 @@
 					
 					
 				</div>	
+				
+				<!--Form for creating folder -->
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<h2 class="page-title">Create Folder</h2>
+						<center>
+							<?php
+								$message2 = @$_GET ['message2'];
+								if (isset ( $message2 )) {
+								?>
+								<div class="alert alert-danger alert-dismissible" role="alert">
+								<?php echo $message2; ?></div>
+							<?php } ?>
+						</center>
+						<center>
+							<?php
+								$message = @$_GET ['message'];
+								if (isset ( $message3 )) {
+								?>
+								<div class="alert alert-success alert-dismissible"
+								role="alert">
+								<?php echo $message3; ?></div>
+							<?php } ?>
+						</center>
+						
+						<!--Form for creating folder -->
+						
+						<form name="folder_form" id="folder_form" action="create_folder.php?page=video"
+						method="post" class="contact-form" enctype="multipart/form-data">
+							
+							<input name="name" id="name" style="width: 100%;" type="text" 
+							placeholder="Enter Folder Name" /> <input type="submit"
+							name="Folder" id="Folder" value="Create folder" />
+						</form>
+					</div>
+					
+				</div>
+				
 				<?php
 				}
 			?>	
@@ -384,86 +385,86 @@
 														}
 													} 
 												?>		
-											<?php
-											}
-										?>
-									</tbody>
-								</table>
+												<?php
+												}
+											?>
+										</tbody>
+									</table>
+									
+									<a class="btn btn-warning" href='previous_folder.php?page=video'>Previous Folder</a>
+								</div>
 								
-								<a class="btn btn-warning" href='previous_folder.php?page=video'>Previous Folder</a>
 							</div>
-							
 						</div>
+						<!--End Advanced Tables -->
 					</div>
-					<!--End Advanced Tables -->
 				</div>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<footer class="site-footer">
-				<div class="container">
-					<img src="dummy/logo-footer.png" alt="Site Name"> QUT
-					
-					<form action="#" class="newsletter-form">
-						<input type="email"
-						placeholder="Enter your email to join newsletter..."> <input
-						type="submit" class="button cut-corner" value="Subscribe">
-					</form>
-					<!-- .newsletter-form -->
-					
-					<div class="social-links">
-						<a href="#"><i class="fa fa-facebook-square"></i></a> <a href="#"><i
-							class="fa fa-twitter"></i></a> <a href="#"><i
-							class="fa fa-google-plus"></i></a> <a href="#"><i
-						class="fa fa-pinterest"></i></a>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<footer class="site-footer">
+					<div class="container">
+						<img src="dummy/logo-footer.png" alt="Site Name"> QUT
+						
+						<form action="#" class="newsletter-form">
+							<input type="email"
+							placeholder="Enter your email to join newsletter..."> <input
+							type="submit" class="button cut-corner" value="Subscribe">
+						</form>
+						<!-- .newsletter-form -->
+						
+						<div class="social-links">
+							<a href="#"><i class="fa fa-facebook-square"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a> <a href="#"><i
+								class="fa fa-google-plus"></i></a> <a href="#"><i
+							class="fa fa-pinterest"></i></a>
+						</div>
+						<!-- .social-links -->
+						
+						<p class="copy">LENNYFACE</p>
 					</div>
-					<!-- .social-links -->
-					
-					<p class="copy">LENNYFACE</p>
+				</footer>
+				<!-- .site-footer -->
+				
 				</div>
-			</footer>
-			<!-- .site-footer -->
-			
-		</div>
-		<!-- #site-content -->
-		
-		
-		
-		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/plugins.js"></script>
-		<script src="js/app.js"></script>
-		
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<!-- BOOTSTRAP SCRIPTS -->
-		<script src="assets/js/bootstrap.min.js"></script>
-		<!-- METISMENU SCRIPTS -->
-		<script src="assets/js/jquery.metisMenu.js"></script>
-		<!-- DATA TABLE SCRIPTS -->
-		<script src="assets/js/dataTables/jquery.dataTables.js"></script>
-		<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-		<script>
-			$(document).ready(function () {
+				<!-- #site-content -->
+				
+				
+				
+				<script src="js/jquery-1.11.1.min.js"></script>
+				<script src="js/plugins.js"></script>
+				<script src="js/app.js"></script>
+				
+				<script src="assets/js/jquery-1.10.2.js"></script>
+				<!-- BOOTSTRAP SCRIPTS -->
+				<script src="assets/js/bootstrap.min.js"></script>
+				<!-- METISMENU SCRIPTS -->
+				<script src="assets/js/jquery.metisMenu.js"></script>
+				<!-- DATA TABLE SCRIPTS -->
+				<script src="assets/js/dataTables/jquery.dataTables.js"></script>
+				<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+				<script>
+				$(document).ready(function () {
 				$('#dataTables-example').dataTable();
-			});
-		</script>
-		<!-- CUSTOM SCRIPTS -->
-		<script src="assets/js/custom.js"></script>
-		
-	</body>
-	
-</html>																												
+				});
+				</script>
+				<!-- CUSTOM SCRIPTS -->
+				<script src="assets/js/custom.js"></script>
+				
+				</body>
+				
+				</html>																																			

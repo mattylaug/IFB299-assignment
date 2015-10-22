@@ -61,7 +61,7 @@
 		}
 		else if($page === 'video'){
 			
-			header("Location:blog.php?message3='$message1'");
+			header("Location:blog.php?message='$message1'");
 		}
 		else if($page === 'gallery'){
 			header("Location:gallery.php?message='$message1'");

@@ -90,7 +90,7 @@
 		}
 		else if($page === 'video'){
 			
-			header("Location:blog.php?message3='$message'");
+			header("Location:blog.php?message='$message'");
 		}
 		else if($page === 'images'){
 			header("Location:gallery.php?message='$message'");

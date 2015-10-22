@@ -47,7 +47,7 @@
 	
 	function CreateFolder(){
 		$current_directory = @$_SESSION['current_directory'];
-		$name= $_POST['foldername'];
+		$name = $_POST['name']; 
 		$id = @$_SESSION['id'];
 		$page = $_GET['page'];
 		
@@ -56,25 +56,38 @@
 		
 		$new_file_name=date("d-m-Y")."-".time().$ext;
 		
-		$check = mysql_query("select name from media where name ='$name' AND data_type='$ext' and user_id = '".$_SESSION['id']."'");
+		$check = mysql_query("select name from media where name = '$name' AND data_type='$ext' and user_id = '$id'");
 		$SongCount = mysql_num_rows($check);
 		
 		if($SongCount>0)
 		{
-			header("Location:blog.php?message1=This file already exists.");
+			header("Location:blog.php?message1=This file already exists '$name' '$ext'.");
 			
 		}
-		if($SongCount>0)
-		{
-			header("Location:blog.php?message1=This file already exists.");
-			
-		} 
+		
 		else{
 			$target_path = "folders/".$new_file_name;
 			$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','$ext','$target_path','$file_size')";
 			$query="UPDATE media SET media_path = '$current_directory' WHERE user_id = '$id' AND name = $name";
-			if(mysql_query($query AND mysql_query($query_insert)))
-			header("Location:blog.php?message=Folder created successfully.");
+			if(mysql_query($query_insert)){
+				mysql_query($query);
+				SendMessage("Folder created successfully.",$page);
+			}
+		}
+	}
+	function SendMessage($message,$page){
+		if($page === 'audio'){
+			header("Location:download.php?message='$message'");
+		}
+		else if($page === 'video'){
+			
+			header("Location:blog.php?message='$message'");
+		}
+		else if($page === 'images'){
+			header("Location:gallery.php?message='$message'");
+		} 
+		else{
+			header("Location:library.php?message='$message'");
 		}
 	}
 ?>
