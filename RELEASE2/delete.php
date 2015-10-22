@@ -19,7 +19,7 @@
 	}
 	
 	
-	if($page === 'mp3'){
+	if($page === 'audio'){
 		header("Location: download.php");
 	}
 	else if($page === 'video'){
@@ -29,7 +29,7 @@
 		header("Location: gallery.php'");
 	}
 	else{
-		header("Location: library.php");
+		header("Location: about.php");
 	}
 	
 	

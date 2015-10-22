@@ -6,6 +6,7 @@
 	$email = @$_SESSION['email'];
 	$banned = @$_SESSION['banned'];
 	$sql = mysql_query("SELECT status,banned FROM registered_users WHERE user_id ='$id'");
+	$current_directory = @$_SESSION['current_directory'];
 	$page = 'audio';
 	
 	$row = mysql_fetch_array($sql);
@@ -186,6 +187,43 @@
 						</form>
 					</div>	
 				</div>	
+				
+				<!--Form for creating folder -->
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<h2 class="page-title">Create Folder</h2>
+						<center>
+							<?php
+								$message2 = @$_GET ['message2'];
+								if (isset ( $message2 )) {
+								?>
+								<div class="alert alert-danger alert-dismissible" role="alert">
+								<?php echo $message2; ?></div>
+							<?php } ?>
+						</center>
+						<center>
+							<?php
+								$message = @$_GET ['message'];
+								if (isset ( $message3 )) {
+								?>
+								<div class="alert alert-success alert-dismissible"
+								role="alert">
+								<?php echo $message3; ?></div>
+							<?php } ?>
+						</center>
+						
+						<!--Form for creating folder -->
+						<form name="folder_form" id="folder_form" action="create_folder.php?page=audio"
+						method="post" class="contact-form" enctype="multipart/form-data">
+							
+							<input name="name" id="name" style="width: 100%;" type="text" 
+							placeholder="Enter Folder Name" /> <input type="submit"
+							name="Folder" id="Folder" value="Create folder" />
+						</form>
+					</div>
+					
+				</div>
 				<?php
 				}
 			?>	
@@ -196,7 +234,7 @@
 				<div class="col-md-2">
 				</div>
                 <div class="col-md-8">
-					<center><h2 class="page-title">Audio Library</h2></center>	
+					<center><h2 class="page-title">Audio Library <?php echo $current_directory; ?></h2></center>	
 					
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
@@ -209,32 +247,35 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Size</th>
-                                            <th>Type</th>
-                                            <th>Play</th>
-                                            <th>Download</th>
+											<th>Name</th>
+											<th>Size</th>
+											<th>Type</th>
+											<th>Play</th>
+											<th>Download</th>
 											<th>Delete</th>
+											<th>Move</th>
+											<th>Open</th>
 										</tr>
 									</thead>
                                     <tbody>
 										<?php
 											
-											$query = mysql_query("select * from media where data_type ='.mp3' and banned = '0' and user_id = '".$_SESSION['id']."'");
+											$query = mysql_query ( "select * from media where banned = '0' and (data_type = '.mp3' || data_type = '.audiofolder') and user_id = '" . $_SESSION ['id'] . "' and media_path = '" . $_SESSION ['current_directory'] . "' " ); //
 											while ($row = mysql_fetch_array($query))
-											{
-												$name = $row['name'];
-												$size = $row['data_size'];
-												$type = $row['data_type'];
-												$data_link = $row['data_link'];
+											{	
+												$id1 = $row ['media_id'];
+												$name = $row ['name'];
+												$size = $row ['data_size'];
+												$type = $row ['data_type'];
+												$data_link = $row ['data_link'];
+												$to_move = $row ['to_move'];
+												$media_path = $row['media_path']
 												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
 												<td><?php echo $size;?>Mb</td>
-												<td>mp3</td>
-												<td class="center"><a target="_blank"href="play_mp3.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
-												
+												<td><?php echo $type;?></td>
 												<?php
 													$check_size = mysql_query("select data_downloaded from registered_users where user_id='$id'");
 													while ($row1 = mysql_fetch_array($check_size)){
@@ -254,11 +295,47 @@
 														
 													}
 													else{
+														
 													?>
-													<td class="center"><a target="_blank"  class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
-													<td><a  class="btn btn-warning"  href="delete.php?id=<?php echo $row['media_id'];?>&page=mp3">Delete</a></td>
+													
 													<?php
-													}
+														if ($type == ".audiofolder") {
+															// Is a folder
+														?>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=audio&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=audio&file_size = <?php echo $size;?>'>Move to</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=audio'>Open Folder</a></td>
+														<?php
+														} 
+														else {
+															// Is not a folder
+														?>
+														<td class="center"><a target="_blank"href="play_mp3.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
+														<td class="center"><a target="_blank" class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
+														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id'];?>&page=audio&size=<?php echo $size;?>">Delete</a></td>
+														
+														<?php
+															if($to_move=='0'){
+																//When button is clicked, sets to_move on media file in database to 1.
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=audio'>To Move</a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+															
+															<?php
+															}
+															else{
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=audio'>Ready To Move </a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+															<?php
+															}
+															
+														}
+													} 
 													
 												?>
 												
@@ -270,6 +347,7 @@
 										?>
 									</tbody>
 								</table>
+								<a class="btn btn-warning" href='previous_folder.php?page=audio'>Previous Folder</a>
 							</div>
 							
 						</div>
@@ -337,7 +415,7 @@
 		</script>
 		<!-- CUSTOM SCRIPTS -->
 		<script src="assets/js/custom.js"></script>
-		
+	
 	</body>
 	
-</html>																													
+	</html>																																				

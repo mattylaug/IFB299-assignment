@@ -67,7 +67,7 @@
 			header("Location:gallery.php?message='$message1'");
 		} 
 		else{
-			header("Location:library.php?message='$message1'");
+			header("Location:about.php?message='$message1'");
 		}
 	}
 	

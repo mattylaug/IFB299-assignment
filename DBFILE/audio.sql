@@ -28,14 +28,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `e_books` (
   `id` int(10) NOT NULL,
-  `book_name` varchar(200) NOT NULL,
-  `author_name` varchar(200) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `book_name` varchar(200) NOT NULL DEFAULT '',
+  `author_name` varchar(200) NOT NULL DEFAULT '',
+  `description` varchar(200) NOT NULL DEFAUL '',
   `book_path_name` varchar(200) NOT NULL,
-  `banned` int(1) NOT NULL DEFAULT '0',
   `media_path` varchar(255) NOT NULL DEFAULT '/main/',
+  `user_id` int(11) NOT NULL,
+  `data_type` varchar (255) NOT NULL, 
   `to_move` int(11) NOT NULL DEFAULT '0',
-  `user_id` int(11) NOT NULL
+  `banned` int(1) NOT NULL DEFAULT '0'
+  
+   
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

@@ -112,7 +112,7 @@
 			header("Location:gallery.php?message1='$message'");
 		} 
 		else{
-			header("Location:library.php?message1='$message'");
+			header("Location:about.php?message1='$message'");
 		}
 	}
 ?>

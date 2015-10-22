@@ -67,11 +67,21 @@
 		
 		else{
 			$target_path = "folders/".$new_file_name;
-			$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','$ext','$target_path','$file_size')";
-			$query="UPDATE media SET media_path = '$current_directory' WHERE user_id = '$id' AND name = $name";
-			if(mysql_query($query_insert)){
-				mysql_query($query);
-				SendMessage("Folder created successfully.",$page);
+			if($page != 'ebook'){
+				$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','$ext','$target_path','$file_size')";
+				$query="UPDATE media SET media_path = '$current_directory' WHERE user_id = '$id' AND name = '$name'";
+				if(mysql_query($query_insert)){
+					mysql_query($query);
+					SendMessage("Folder created successfully.",$page);
+				}
+			}
+			else if ($page == 'ebook') {
+				$query_insert="INSERT INTO `e_books`(`book_name`, `author_name`, `description`, `book_path_name`, `media_path`,`user_id`,`data_type`) VALUES ('$name', '' , '' ,'$target_path', '$current_directory','$id', '$ext')";
+				$query="UPDATE e_books SET media_path = '$current_directory' WHERE user_id = '$id' AND book_name = '$name'";
+				if(mysql_query($query_insert)){
+					mysql_query($query);
+					SendMessage("Folder created successfully.",$page);
+				}
 			}
 		}
 	}
@@ -87,7 +97,7 @@
 			header("Location:gallery.php?message='$message'");
 		} 
 		else{
-			header("Location:library.php?message='$message'");
+			header("Location:about.php?message='$message'");
 		}
 	}
 ?>

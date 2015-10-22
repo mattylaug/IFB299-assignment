@@ -188,6 +188,43 @@
 						</form>
 					</div>	
 				</div>	
+				
+				<!--Form for creating folder -->
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<h2 class="page-title">Create Folder</h2>
+						<center>
+							<?php
+								$message2 = @$_GET ['message2'];
+								if (isset ( $message2 )) {
+								?>
+								<div class="alert alert-danger alert-dismissible" role="alert">
+								<?php echo $message2; ?></div>
+							<?php } ?>
+						</center>
+						<center>
+							<?php
+								$message = @$_GET ['message'];
+								if (isset ( $message3 )) {
+								?>
+								<div class="alert alert-success alert-dismissible"
+								role="alert">
+								<?php echo $message3; ?></div>
+							<?php } ?>
+						</center>
+						
+						<!--Form for creating folder -->
+						<form name="folder_form" id="folder_form" action="create_folder.php?page=ebook"
+						method="post" class="contact-form" enctype="multipart/form-data">
+							
+							<input name="name" id="name" style="width: 100%;" type="text" 
+							placeholder="Enter Folder Name" /> <input type="submit"
+							name="Folder" id="Folder" value="Create folder" />
+						</form>
+					</div>
+					
+				</div>
 				<?php
 				}
 			?>	
@@ -198,7 +235,7 @@
 				<div class="col-md-2">
 				</div>
                 <div class="col-md-8">
-					<center><h2 class="page-title">Ebooks Library</h2></center>	
+					<center><h2 class="page-title">Ebooks Library. Current Directory: <?php echo @$_SESSION ['current_directory'];  ?></h2></center>	
 					
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
@@ -216,6 +253,8 @@
                                             <th>View</th>
                                             <th>Download</th>
 											<th>Delete</th>
+											<th>Move</th>
+											<th>Open</th>
 										</tr>
 									</thead>
                                     <tbody>
@@ -223,18 +262,20 @@
 											
 											$query = mysql_query("select * from e_books where banned = '0' and user_id = '".$_SESSION['id']."'");
 											while ($row = mysql_fetch_array($query))
-											{
+											{	
+												$id1 = $row ['id'];
 												$name = $row['book_name'];
 												$author = $row['author_name'];
 												$description = $row['description'];
-												$book_path_name = $row['book_path_name'];
+												$data_link = $row['book_path_name'];
+												$to_move = $row ['to_move'];
+												$media_path = $row['media_path']
+												$type = $row['data_type'];
 												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
-												<td><?php echo $author;?></td>
-												<td><?php echo $description;?></td>
-												<td class="center"><a target="_blank"href="<?php echo $book_path_name; ?>" class=""></a></td>
+												
 												
 												
 												<?php
@@ -244,33 +285,65 @@
 													<td class="center">You are banned.Can't download.</td>
 													<?php
 													}
-													
 													else{
-													?>
-													<td class="center"><a target="_blank"  class="btn btn-warning"  href="<?php echo $book_path_name;?>" download>Download</a></td>
-													<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=book">Delete</a></td>
-													
-													<?php
+														if ($type == ".ebookfolder") {
+															//is a folder
+														?>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=ebook&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo id1;?>&name=<?php echo $row['name'];?>&page=ebook&file_size = <?php echo 0;?>'>Move to</a></td>
+														
+														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=ebook'>Open Folder</a></td>
+														<?php
+															} else{
+															//is book
+														?>
+														//is book
+														<td><?php echo $author;?></td>
+														<td><?php echo $description;?></td>
+														
+														<td class="center"><a target="_blank"href="<?php echo $data_link; ?>" class=""></a></td>
+														<td class="center"><a target="_blank"  class="btn btn-warning"  href="<?php echo $data_link;?>" download>Download</a></td>
+														<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=ebook">Delete</a></td>
+														<?php
+															if($to_move == '0'){
+																
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=ebook'>To Move </a></td>
+															<?php
+															}
+															else{
+															?>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=ebook'>Ready To Move </a></td>
+															
+															<?php
+															}	
+														?>
+														<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=ebook">Delete</a></td>
+														
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<?php
+														}
 													}
-													
 												?>
-												
-												
-												
-												
 											</tr>
 											
 											<?php
-												
 											}
 										?>
 									</tbody>
 								</table>
 							</div>
-                            
+							
 						</div>
 					</div>
-                    <!--End Advanced Tables -->
+					<!--End Advanced Tables -->
 				</div>
 			</div>
 			
@@ -291,49 +364,49 @@
 			
 			
 			<footer class="site-footer">
-				<div class="container">
-					<img src="dummy/logo-footer.png" alt="Site Name">
-					
-					QUT
-					
-					<form action="#" class="newsletter-form">
-						<input type="email" placeholder="Enter your email to join newsletter...">
-						<input type="submit" class="button cut-corner" value="Subscribe">
-					</form> <!-- .newsletter-form -->
-					
-					<div class="social-links">
-						<a href="#"><i class="fa fa-facebook-square"></i></a>
-						<a href="#"><i class="fa fa-twitter"></i></a>
-						<a href="#"><i class="fa fa-google-plus"></i></a>
-						<a href="#"><i class="fa fa-pinterest"></i></a>
-					</div> <!-- .social-links -->
-					
-					<p class="copy">LENNYFACE</p>
-				</div>
+			<div class="container">
+			<img src="dummy/logo-footer.png" alt="Site Name">
+			
+			QUT
+			
+			<form action="#" class="newsletter-form">
+			<input type="email" placeholder="Enter your email to join newsletter...">
+			<input type="submit" class="button cut-corner" value="Subscribe">
+			</form> <!-- .newsletter-form -->
+			
+			<div class="social-links">
+			<a href="#"><i class="fa fa-facebook-square"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-google-plus"></i></a>
+			<a href="#"><i class="fa fa-pinterest"></i></a>
+			</div> <!-- .social-links -->
+			
+			<p class="copy">LENNYFACE</p>
+			</div>
 			</footer> <!-- .site-footer -->
 			
-		</div> <!-- #site-content -->
-		
-		<script src="js/jquery-1.11.1.min.js"></script>		
-		<script src="js/plugins.js"></script>
-		<script src="js/app.js"></script>
-		
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<!-- BOOTSTRAP SCRIPTS -->
-		<script src="assets/js/bootstrap.min.js"></script>
-		<!-- METISMENU SCRIPTS -->
-		<script src="assets/js/jquery.metisMenu.js"></script>
-		<!-- DATA TABLE SCRIPTS -->
-		<script src="assets/js/dataTables/jquery.dataTables.js"></script>
-		<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
+			</div> <!-- #site-content -->
+			
+			<script src="js/jquery-1.11.1.min.js"></script>		
+			<script src="js/plugins.js"></script>
+			<script src="js/app.js"></script>
+			
+			<script src="assets/js/jquery-1.10.2.js"></script>
+			<!-- BOOTSTRAP SCRIPTS -->
+			<script src="assets/js/bootstrap.min.js"></script>
+			<!-- METISMENU SCRIPTS -->
+			<script src="assets/js/jquery.metisMenu.js"></script>
+			<!-- DATA TABLE SCRIPTS -->
+			<script src="assets/js/dataTables/jquery.dataTables.js"></script>
+			<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+			<script>
+			$(document).ready(function () {
+			$('#dataTables-example').dataTable();
 			});
-		</script>
-		<!-- CUSTOM SCRIPTS -->
-		<script src="assets/js/custom.js"></script>
-		
-	</body>
-	
-</html>
+			</script>
+			<!-- CUSTOM SCRIPTS -->
+			<script src="assets/js/custom.js"></script>
+			
+			</body>
+			
+			</html>									

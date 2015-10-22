@@ -14,29 +14,30 @@
 		$sql = "UPDATE media SET to_move = 1 WHERE media_id = '$move_id' AND user_id = '" . $_SESSION ['id'] . "' ";
 		
 		if(mysql_query( $sql )){
-			SendMessage("Removed media to move.",$page);
+			SendMessage("Ready to move file.",$page);
 		}
 		
-		} else {
+	} 
+	else {
 		
 		$sql1 = "UPDATE media SET to_move = 0 WHERE media_id =' $move_id' AND user_id = '" . $_SESSION ['id'] . "' ";
 		if(mysql_query($sql1)){
-			SendMessage("Ready to move file.",$page);
+			SendMessage("Removed file to move.",$page);
 		}
 	}
 	
 	function SendMessage($message,$page){
 		if($page === 'audio'){
-			header("Location:download.php?message1='$message'");
+			header("Location:download.php?message='$message'");
 		}
 		else if($page === 'video'){
 			
-			header("Location:blog.php?message1='$message'");
+			header("Location:blog.php?message='$message'");
 		}
 		else if($page === 'images'){
-			header("Location:gallery.php?message1='$message'");
+			header("Location:gallery.php?message='$message'");
 			} else{
-			header("Location:library.php?message1='$message'");
+			header("Location:about.php?message='$message'");
 		}
 	}
 	

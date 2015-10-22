@@ -26,7 +26,6 @@
 	}
 	
 	if ($status === 'Inactive') 
-	
 	{
 		$message = "Please activate your account, An activation link is sent to <b>$email</b>";
 	} else if ($banned === '1') 
@@ -215,18 +214,13 @@
 							<?php } ?>
 						</center>
 						
-						<form name="audio_form" id="audio_form" action="upload_video.php"
-						method="post" class="contact-form" enctype="multipart/form-data">
-							<input name="name" id="" style="width: 100%;" type="text"
-							placeholder="Enter Name" /> 
+						<form name="audio_form" id="audio_form" action="upload_video.php" method="post" class="contact-form" enctype="multipart/form-data">
+							<input name="name" id="" style="width: 100%;" type="text" placeholder="Enter Name" /> 
 							
-							<input type="file" name="video_file"
-							type="text" style="width: 100%;" id="video_file" /> <input
-							type="submit" name="Submit" id="Submit" value="Upload" />
+							<input type="file" name="video_file" type="submit" name="Submit" id="Submit" value="Upload" />
+							<input type="submit" name="Submit"  id="Submit" value="Upload"/>
 							
 						</form>
-						
-						
 					</div>
 					
 					
@@ -258,7 +252,6 @@
 						</center>
 						
 						<!--Form for creating folder -->
-						
 						<form name="folder_form" id="folder_form" action="create_folder.php?page=video"
 						method="post" class="contact-form" enctype="multipart/form-data">
 							
@@ -301,9 +294,6 @@
 											<th>Delete</th>
 											<th>Move</th>
 											<th>Open</th>
-											
-											
-											
 										</tr>
 									</thead>
 									<tbody>
@@ -321,17 +311,13 @@
 												$type = $row ['data_type'];
 												$data_link = $row ['data_link'];
 												$to_move = $row ['to_move'];
-												$media_path = $row['media_path']
+												$media_path = $row['media_path'];
 												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
 												<td><?php echo $size;?>Mb</td>
-												<td><?php echo $type;?></td>
-												
-												<td class="center"><a target="_blank" href="play_mp4.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
-												
-												
+												<td><?php echo $type;?></td>	
 												<?php
 													$check_size = mysql_query ( "select data_downloaded from registered_users where user_id='$id'" );
 													while ( $row1 = mysql_fetch_array ( $check_size ) ) {
@@ -350,42 +336,49 @@
 													<?php
 														} else {
 													?>
-													<td class="center"><a target="_blank" class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
+													
 													
 													<?php
 														if ($type == ".videofolder") {
 															// Is a folder
 														?>
-														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=video&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete  <?php echo $id1;?></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=video&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
 														
 														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=video&file_size = <?php echo $size;?>'>Move to</a></td>
 														
 														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=video'>Open Folder</a></td>
 														<?php
-															} else {
+														} 
+														else {
 															// Is not a folder
 														?>
+														<td class="center"><a target="_blank" href="play_mp4.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
+														<td class="center"><a target="_blank" class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
 														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id'];?>&page=video&size=<?php echo $size;?>">Delete</a></td>
+														
 														<?php
 															if($to_move=='0'){
 																//When button is clicked, sets to_move on media file in database to 1.
 															?>
 															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>To Move</a></td>
-															
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 															
 															<?php
 															}
 															else{
 															?>
 															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=video'>Ready To Move </a></td>
-															
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 															<?php
 															}
 															
 														}
 													} 
-												?>		
-												<?php
+													?>
+													</tr>
+													<?php
 												}
 											?>
 										</tbody>
@@ -440,31 +433,31 @@
 				</footer>
 				<!-- .site-footer -->
 				
-				</div>
-				<!-- #site-content -->
-				
-				
-				
-				<script src="js/jquery-1.11.1.min.js"></script>
-				<script src="js/plugins.js"></script>
-				<script src="js/app.js"></script>
-				
-				<script src="assets/js/jquery-1.10.2.js"></script>
-				<!-- BOOTSTRAP SCRIPTS -->
-				<script src="assets/js/bootstrap.min.js"></script>
-				<!-- METISMENU SCRIPTS -->
-				<script src="assets/js/jquery.metisMenu.js"></script>
-				<!-- DATA TABLE SCRIPTS -->
-				<script src="assets/js/dataTables/jquery.dataTables.js"></script>
-				<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-				<script>
+			</div>
+			<!-- #site-content -->
+			
+			
+			
+			<script src="js/jquery-1.11.1.min.js"></script>
+			<script src="js/plugins.js"></script>
+			<script src="js/app.js"></script>
+			
+			<script src="assets/js/jquery-1.10.2.js"></script>
+			<!-- BOOTSTRAP SCRIPTS -->
+			<script src="assets/js/bootstrap.min.js"></script>
+			<!-- METISMENU SCRIPTS -->
+			<script src="assets/js/jquery.metisMenu.js"></script>
+			<!-- DATA TABLE SCRIPTS -->
+			<script src="assets/js/dataTables/jquery.dataTables.js"></script>
+			<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+			<script>
 				$(document).ready(function () {
-				$('#dataTables-example').dataTable();
+					$('#dataTables-example').dataTable();
 				});
-				</script>
-				<!-- CUSTOM SCRIPTS -->
-				<script src="assets/js/custom.js"></script>
-				
-				</body>
-				
-				</html>																																			
+			</script>
+			<!-- CUSTOM SCRIPTS -->
+			<script src="assets/js/custom.js"></script>
+			
+		</body>
+		
+	</html>																																									

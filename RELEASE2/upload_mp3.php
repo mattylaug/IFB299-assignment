@@ -5,6 +5,7 @@
 	$name = @$_SESSION['name'];
 	$email = @$_SESSION['email'];
 	$sql = mysql_query("SELECT status FROM registered_users WHERE user_id ='$id'");
+	$current_directory = @$_SESSION['current_directory'];
 	
 	$row = mysql_fetch_array($sql);
 	
@@ -70,15 +71,24 @@
 						
 						if(move_uploaded_file($_FILES['audio_file']['tmp_name'], $target_path)) {
 							
-							//insert query if u want to insert file
+							$query_insert_users="UPDATE `registered_users` SET `data_uploaded`='$total_data' where user_id='$id'";
+							mysql_query($query_insert_users);
 							
+							//Below is code for getting the folder name so later the size can be deduced
+							$exploded_dir = explode('/',$current_directory);
+							$folder_name =$exploded_dir[sizeof($exploded_dir)-2]; //gets current folder name
 							
+							$insertquery ="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`, `media_path`) VALUES ('$id','$name','.mp3','$target_path','$file_size','$current_directory')";
+							if(mysql_query($insertquery)){
+								if($folder_name != 'main'){
+									$size_of_folder = $file_size + mysql_fetch_row(mysql_query("SELECT data_size FROM media WHERE name = '$folder_name' AND data_type = '.audiofolder'"))[0];
+									mysql_query("UPDATE media SET data_size = '$size_of_folder' WHERE user_id='$id' AND name = '$folder_name'");
+								}
+								header("Location:download.php?message=Uploaded audio successfully.");
+								
+							}
 							
-							//echo filesize($new_file_name);
-							$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','.mp3','$target_path','$file_size')";
-							
-							if(mysql_query($query_insert))
-						header("Location:download.php?message=File uploaded successfully");}
+						}
 						//following function will move uploaded file to audios folder. 
 					}
 				}
@@ -140,19 +150,23 @@
 							
 							if(move_uploaded_file($_FILES['audio_file']['tmp_name'], $target_path)) {
 								
-								//insert query if u want to insert file
-								
-								
-								
-								//echo filesize($new_file_name);
 								$query_insert_users="UPDATE `registered_users` SET `data_uploaded`='$total_data' where user_id='$id'";
 								mysql_query($query_insert_users);
 								
+								//Below is code for getting the folder name so later the size can be deduced
+								$exploded_dir = explode('/',$current_directory);
+								$folder_name =$exploded_dir[sizeof($exploded_dir)-2]; //gets current folder name
 								
-								$query_insert="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`) VALUES ($id,'$name','.mp3','$target_path','$file_size')";
-								
-								if(mysql_query($query_insert))
-							header("Location:download.php?message=File uploaded successfully");}
+								$insertquery ="INSERT INTO `media`(`user_id`, `name`, `data_type`, `data_link`, `data_size`, `media_path`) VALUES ('$id','$name','.mp3','$target_path','$file_size','$current_directory')";
+								if(mysql_query($insertquery)){
+									if($folder_name != 'main'){
+										$size_of_folder = $file_size + mysql_fetch_row(mysql_query("SELECT data_size FROM media WHERE name = '$folder_name' AND data_type = '.audiofolder'"))[0];
+										mysql_query("UPDATE media SET data_size = '$size_of_folder' WHERE user_id='$id' AND name = '$folder_name'");
+									}
+									header("Location:download.php?message=Uploaded audio successfully.");
+									
+								}
+							}
 							//following function will move uploaded file to audios folder. 
 						}
 					}

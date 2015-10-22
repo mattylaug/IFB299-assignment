@@ -49,7 +49,7 @@
 	
 	function PreviousFolder(){
 		$page = $_GET['page'];
-
+		
 		$current_directory = @$_SESSION['current_directory'];
 		
 		if($current_directory != '/main/' ){ //Will not go back a folder if
@@ -94,8 +94,9 @@
 		}
 		else if($page === 'images'){
 			header("Location:gallery.php?message='$message'");
-			} else{
-			header("Location:library.php?message='$message'");
+		} 
+		else{
+			header("Location:about.php?message='$message'");
 		}
 	}
 ?>
