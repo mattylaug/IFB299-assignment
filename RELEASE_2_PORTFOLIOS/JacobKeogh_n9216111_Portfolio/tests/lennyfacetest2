@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="mediavault.html">Sign Up</a></td></tr>
+<tr><td><a href="mediavault.html">Forgot Password</a></td></tr>
+<tr><td><a href="mediavault.html">Login - Incorrect Password</a></td></tr>
+<tr><td><a href="test999999.html">Login- Correct Password</a></td></tr>
+<tr><td><a href="testtabs.html">Tabs Test</a></td></tr>
+<tr><td><a href="contact.html">Contact Us</a></td></tr>
+<tr><td><a href="upload.html">Upload- No content (error message)</a></td></tr>
+<tr><td><a href="download.html">Play/download Audio</a></td></tr>
+<tr><td><a href="doanlowd2.html">Play/Download Video</a></td></tr>
+<tr><td><a href="photo.html">View Photo</a></td></tr>
+<tr><td><a href="l;og.html">Log Out</a></td></tr>
+<tr><td><a href="contact2.html">Contact Us 2</a></td></tr>
+</tbody></table>
+</body>
+</html>

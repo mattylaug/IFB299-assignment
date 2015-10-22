@@ -1,0 +1,116 @@
+﻿ProjectID,Entity Type,ID,Name,Description,Start Date,Planned Start Date,End Date,Planned End Date,Time Spent,Time Remain,Create Date,Modify Date,Last Comment Date,Effort,Effort Completed,Effort To Do,Role Efforts,Progress,Initial Estimate,Project,Feature,Release,Sprint,Team Sprint,User Story,Team,Last Commented User,Tags,Numeric Priority,Owner,Linked Test Plan,Priority,Entity State,Assignments,Build,Severity
+191,UserStory,249,Support for different browsers,"As a user, I want to be able to use this service on different browsers, as to allow me to use this service on any computer without installing a certain browser.
+Acceptance Criteria: -Should be able to access the webpage and use all of its features from at least 2 browsers.
+-All of its features must work from the supported web pages.
+","","","","",0.0000,0.0000,8/20/2015 7:27:00 AM,10/20/2015 11:43:03 PM,"",3.0000,0.0000,3.0000,"(Developer) 3.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"","","","","",lennyfaceteam,"","",103,Matthew Matthew,"",Average,Open,"","",""
+191,UserStory,239,Photo viewer,"As user, I want to be able to view photos I have stored online, as to have a convenient way to view my photos from any of my computers.
+Acceptance Criteria:
+-Assuming at least 2 images are on display.
+-When the first photo is selected the photo should expand, and have a frame around it on the webpage. Image should have arrows on each side.
+-When the user clicks on the right arrow to go to the next image, the next image is displayed which is chronologically after.
+-When the user clicks on the left arrow to go to the previous image, the previous image is displayed.
+",9/16/2015 9:22:29 PM,"",9/16/2015 9:22:29 PM,"",8.0000,0.0000,8/20/2015 3:21:48 AM,9/16/2015 9:22:30 PM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 2,"","",lennyfaceteam,"","",102.5,Jack Ma,Photo viewer Test Plan,Must Have,Done,(Developer) Jacob Keogh,"",""
+191,UserStory,233,Read ebook from mobile,"As a reader, I want to be able to read my ebooks on my mobile, as to conveniently read books out on the go.
+​Acceptance Criteria: -Must be able able to select ebook from the website stored in the database. This ebook opens when selected and you should be able to read it.
+","","","","",0.0000,0.0000,8/16/2015 10:08:14 AM,10/20/2015 11:44:03 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",100.5,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,232,Download media files on mobile,"As a user, I want to be able to download media on my phone, as to conveniently move my media files onto my device.
+Acceptance Criteria: -Must be able to select a media file from browser on mobile, and the option should be given to download the media file. After it is downloaded, the media should be usable.
+","","","","",0.0000,0.0000,8/16/2015 7:38:44 AM,10/20/2015 11:43:14 PM,"",3.0000,0.0000,3.0000,"(Developer) 3.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",100,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,231,Upload media files to the cloud from mobile,"As a user, I want to be able to upload media files from my mobile to the cloud, as to have a means of conveniently uploading my media files from my mobile.
+Acceptance criteria: -On the website, you should be able to select 'upload', where you can specify the media to upload from the phone.
+-Files should function after upload.
+","","","","",0.0000,0.0000,8/16/2015 7:38:10 AM,10/20/2015 11:43:22 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",99.5,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,230,View photos from mobile,"As a user, I want to be able to view photos from my mobile, as to have a way of conveniently view my stored photos from my device.
+Acceptance Criteria: -Should
+","","","","",0.0000,0.0000,8/16/2015 7:37:00 AM,10/20/2015 11:44:05 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",99,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,229,Listen to audio from mobile,"As a user, I want to be able to stream music from the cloud to my mobile, as to have a way of conveniently listening to music in my storage space online.
+Acceptance Criteria: -There should be an option to stream an audio file when selecting the file. This audio should steam from the cloud to the mobile, and the audio should play.
+-Audio should function properly.
+","","","","",0.0000,0.0000,8/16/2015 7:36:29 AM,10/20/2015 11:43:49 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",98.5,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,228,View videos from mobile,"As a user, I want to be able to view videos from my mobile, as a way to conveniently view videos that I have stored online on my mobile.
+Acceptance Criteria: -There should be an option on the website to steam a video when selecting it from the media list. After it's selected the video file should stream from the cloud to the mobile.
+-Video must be functional.
+","","","","",0.0000,0.0000,8/16/2015 7:36:22 AM,10/20/2015 11:43:42 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 3,"","","",lennyfaceteam,"","",98,Matthew Matthew,"",Nice To Have,Open,"","",""
+191,UserStory,227,Download media from cloud,"As someone who is an avid media consumer I want to be able to easily download media items from the cloud onto any of my other computers, so that I can easily transfer my media files to different computers.
+Acceptance criteria: -When clicking to view a file that I want to download from the website, I should be able to right click on the file and press 'save as' while it is opened , and this file is downloaded from the cloud to the computer.
+",9/3/2015 1:56:10 AM,"",9/3/2015 1:56:10 AM,"",14.0000,0.0000,8/16/2015 7:17:21 AM,9/17/2015 12:53:50 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 1,"","",lennyfaceteam,"","",97.5,Matthew Matthew,Download media from cloud Test Plan,Must Have,Done,(Developer) Matthew Matthew,"",""
+191,UserStory,226,Upload media to cloud,"As an avid media user I want to be able to upload my media to the cloud, so that I have a place to store my media files online.
+Acceptance Criteria: -I want to upload a video, audio, or ebook file from my computer to the cloud. This should happen by selecting 'upload' while logged into an account, and then selecting the file for upload.
+-I put in a name, author and etc into the fields.
+-I click upload and the media is uploaded.
+-Uploaded media must have the correct details submitted.
+-Should not be able to upload non media, such as .exe files, and each category must accept only their type (such as .pdf or .mp3).
+",9/3/2015 2:02:49 AM,"",9/3/2015 2:02:49 AM,"",7.0000,0.0000,8/16/2015 7:12:09 AM,10/22/2015 10:03:24 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 1,"","",lennyfaceteam,"","",97,Matthew Matthew,Upload media to cloud Test Plan,Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,218,Folder system,"As a user, I want to have different folders within each media type, for example as to separate movies from family videos within the videos section.
+Acceptance Criteria: -When on media files view, I should be able to create a new folder by inputing a name of the folder and pressing a 'create folder' button.
+-When I press the open folder button next to the file, it should open and only the media that was placed into that folder should show up in the list.
+-When in the folder, when I upload new media, it should show up in that folder.
+-When I click the previous folder button the contents in the folder that was created should no longer be visible, and the directory should be in the main directory.
+",10/1/2015 12:00:00 AM,"",10/15/2015 12:00:00 AM,"",15.0000,0.0000,8/14/2015 8:40:33 PM,10/21/2015 6:44:46 AM,"",13.0000,13.0000,0.0000,"(Developer) 13.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 3,"","",lennyfaceteam,"","",93.5,Andy,"",Good,Done,(Developer) Matthew Matthew,"",""
+191,UserStory,216,IP logging,"As a user of this system, I want to know what IP my account has been logged in from, as to make sure no one else I didn't allow access my account.
+Acceptance Criteria: -System must log the IP of every address that has logged in.
+-User must be able to see these logged IPs by navigating to the 'logged IPs' page. Where there is a list of IP addresses.
+","","","","",0.0000,0.0000,8/14/2015 8:38:46 PM,10/20/2015 10:53:31 PM,"",5.0000,0.0000,5.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",0.0000,0.0000,Media vault,"",Release 2,sprint 4,"","",lennyfaceteam,"","",92.5,Andy,"",Great,Open,"","",""
+191,UserStory,215,Photo albums,"As a user I want a way to make photo albums, so that I can categorize my photos I store on the cloud by the destinations I travelled, such as Rome or Italy.
+Acceptance Criteria: -After inputting a folder name and clicking submit, a new photo album should be visible.
+-After opening the album, other photos/albums in the main directory should not be visible.
+-When uploading a photo inside an album, that photo should show up only in that album.
+",10/22/2015 10:13:24 AM,"",10/22/2015 10:13:24 AM,"",3.0000,0.0000,8/14/2015 8:36:58 PM,10/22/2015 10:13:24 AM,"",5.0000,5.0000,0.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 3,"","",lennyfaceteam,"","",92,Andy,"",Must Have,Done,(Developer) Jack Ma,"",""
+191,UserStory,214,Tabs for video music etc,"As a user with various types of media, I want to be able to choose which media type I want to view, so that I can easily sort through what type of media I want to watch.
+Acceptance Criteria: -Can select tab (such as audio, video, ebook) to view only media of a certain type on the website.
+-Upon selecting the media type, only media type of the selected should be shown on the website. For example clicking the video tab will make it so only videos are shown.
+",10/21/2015 6:45:12 AM,"",10/21/2015 6:45:12 AM,"",0.0000,0.0000,8/14/2015 8:36:29 PM,10/21/2015 6:45:13 AM,"",2.0000,2.0000,0.0000,"(Developer) 2.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 3,"","",lennyfaceteam,"","",91.5,Andy,"",Must Have,Done,"","",""
+191,UserStory,212,Free/paid account options,"As the client, I want to be able to have paid/free options for users with paid having more data, as to give users incentive to buy.
+Acceptance Criteria: -Anyone can register but you have to confirm your email before you get a larger download capacity.
+-This confirmation is sent to your email, once confirmed then the capacity of the account will increase, thus you can upload more files.
+Notes: This is a substitute for paying money for a bigger capacity.
+",10/22/2015 10:10:40 AM,"",10/22/2015 10:10:40 AM,"",3.0000,0.0000,8/14/2015 8:35:38 PM,10/22/2015 10:11:14 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 4,"","",lennyfaceteam,"","",90.5,Andy,"",Good,Done,"","",""
+191,UserStory,206,Forget password function,"As a user of this system, I want to be able to reset my password, so that if I forget it I can still access my account.​
+Acceptance Criteria: -Must be able to select ""forgotten password"" on the website, which will then send an email to the email address of the user containing their current password.
+",10/20/2015 10:39:28 PM,"",10/20/2015 10:39:28 PM,"",2.0000,0.0000,8/14/2015 8:31:02 PM,10/22/2015 10:05:43 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 3,"","",lennyfaceteam,"","",87.5,Andy,"",Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,205,Administrative capability,"As the moderator of this system, I want to be able to delete accounts, so that I can remove accounts holding illegal media.
+Acceptance Criteria: -Admin must be able to log in with a specified account login. This grants them special rights.
+-Be able to select a user on the list through the website, and delete their account.
+-Be able to see the contents of any user's account by selecting their account and then they will be able to view their media files.
+-By clicking each of the tabs, navigate from audio, to video, ebooks, and images of the selected user.
+-By clicking on a 'ban' button near a piece of media, should ban that media and disallow the user to access that media.
+-By clicking on a 'delete' button near a piece of media, that media should be deleted from the database.
+-By clicking on a 'ban' button on the selected user, should ban that user from accessing the website all together.
+-By clicking on a 'delete' button near a user, that user should be deleted from the database.
+",9/16/2015 9:23:11 PM,"",9/16/2015 9:23:11 PM,"",7.0000,0.0000,8/14/2015 8:29:57 PM,10/22/2015 10:02:24 AM,"",13.0000,13.0000,0.0000,"(Developer) 13.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 2,"","",lennyfaceteam,"","",87,Andy,Administrative capability Test Plan,Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,204,Ebooks reading,"As an avid reader, I want to be able to view my ebooks from any of my computers, so that I can conveniently access my ebooks from anywhere.
+​Acceptance Criteria: -Must be able able to select an ebook from the website stored in the database when I click 'view ebook', on the ebooks page. This ebook opens when selected and I should.
+",9/16/2015 9:22:13 PM,"",9/16/2015 9:22:13 PM,"",9.0000,0.0000,8/14/2015 8:29:20 PM,9/17/2015 12:50:37 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 2,"","",lennyfaceteam,"","",86.5,Andy,Ebooks reading Test Plan,Must Have,Done,(Developer) Jack Ma,"",""
+191,UserStory,203,Video player,"As a movie watcher, I want to play videos stored in my account online, so I conveniently watch movies from any of my computers.
+Acceptance Criteria: -Must be able to stream videos, by selecting the video on the webpage, this video should be streamed from the cloud to the computer.
+-Should support various common formats, such as mp4 or mkv.
+",9/16/2015 8:46:12 PM,"",9/16/2015 8:46:12 PM,"",7.0000,0.0000,8/14/2015 8:28:55 PM,9/16/2015 8:46:12 PM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 2,"","",lennyfaceteam,"","",86,Andy,Video player Test Plan,Must Have,Done,(Developer) Matthew Matthew,"",""
+191,UserStory,202,Audio player,"As an avid music listener, I want to steam music from my online account, so that I can conveniently listen to my music from all my computers.
+Acceptance Criteria: -On the audio section, I must be able to stream music from any computer by selecting a play button near the file in a list of audio on the website.
+-Then the selected music will be streamed from the database to the computer.
+-Should support common audio files, such as mp3.
+",9/16/2015 8:46:09 PM,"",9/16/2015 8:46:09 PM,"",6.0000,0.0000,8/14/2015 8:28:38 PM,9/16/2015 8:46:09 PM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 2,"","",lennyfaceteam,"","",85.5,Andy,Audio player Test Plan,Must Have,Done,(Developer) Matthew Matthew,"",""
+191,UserStory,201,Information page (policy must agree),"As the owner of this system, I want a policy of use that must be agreed to, so that if anything illegal happens I am not responsible.
+Acceptance Criteria: -When creating an account, the policy must be agreed to in order to register.
+-There should be a link to the policy page while registering for an account. This page states that anything illegal that is uploaded on the site by a user does not make the owner of the site responsible, and other agreements.
+",10/21/2015 6:47:19 AM,"",10/21/2015 6:47:19 AM,"",5.0000,0.0000,8/14/2015 8:28:07 PM,10/21/2015 6:47:19 AM,"",5.0000,5.0000,0.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 4,"","",lennyfaceteam,"","",85,Andy,"",Must Have,Done,"","",""
+191,UserStory,200,Contact us,"As a user I may need to contact the administrator, as to get access to help(such as if I have an issue with my account).
+Acceptance Criteria: -Must be able to enter into a 'contact us' section, where an email will be available to contact the admin.
+",10/20/2015 10:39:56 PM,"",10/20/2015 10:39:56 PM,"",2.0000,0.0000,8/14/2015 8:27:19 PM,10/22/2015 10:06:09 AM,"",5.0000,5.0000,0.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 4,"","",lennyfaceteam,"","",84.5,Andy,"",Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,198,Drag and drop,"As a user of this system, I want to be able to drag and drop files to upload, as to make the upload experience easier.
+Acceptance Criteria: -When a media file is dragged into the browser from the computer(video, audio or ebook) while on a media page, the file is uploaded to the user's account.
+-Uploaded media should show up on the list in the current folder.
+",10/14/2015 10:51:22 PM,"",10/14/2015 10:51:22 PM,"",9.0000,0.0000,8/14/2015 8:25:15 PM,10/22/2015 10:04:48 AM,"",3.0000,3.0000,0.0000,"(Developer) 3.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 2,sprint 3,"","",lennyfaceteam,"","",83.5,Andy,"",Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,197,Search the media,"As a user of this system, I want to be able to search my files, so that I can find the item I'm looking for easily.
+Acceptance Criteria: -When I enter the search query into the search bar, and click the search button. Search by name.
+-Searching for x on the website must return all results of media with x included in its name.
+-The user should be able to access/download/delete the files found while still in the searching screen
+",9/3/2015 2:03:04 AM,"",9/3/2015 2:03:04 AM,"",9.0000,0.0000,8/14/2015 8:24:32 PM,9/17/2015 12:53:23 AM,"",8.0000,8.0000,0.0000,"(Developer) 8.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 1,"","",lennyfaceteam,"","",83,Andy,Search the media Test Plan,Must Have,Done,(Developer) Jack Ma,"",""
+191,UserStory,195,Registration,"As a customer of this service, I want to be able to register an account, as to allow me to upload/download media, and stream media.
+Acceptance Criteria: -I click on register from the home page section, I input correct username/password/email, and a confirmation is sent to email.
+-After clicking the confirmation link from my email account the account should be set.
+",9/3/2015 2:07:18 AM,"",9/3/2015 2:07:18 AM,"",12.0000,0.0000,8/14/2015 8:22:50 PM,10/22/2015 10:06:59 AM,"",5.0000,5.0000,0.0000,"(Developer) 5.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 1,"","",lennyfaceteam,"","",82,Andy,Registration Test Plan,Must Have,Done,(Developer) Adnan Osmanovic,"",""
+191,UserStory,194,Username/password.,"As a user of this system, I want to be able to log in, as a means to use the features of this service.
+Acceptance Criteria: -It should be possible for the me to log into my account with my correct email and password, and have access to the site.
+-If the wrong email or password is put in I will not have access to the website.
+",9/3/2015 2:07:32 AM,"",9/3/2015 2:07:32 AM,"",4.0000,0.0000,8/13/2015 2:23:16 AM,9/17/2015 12:51:17 AM,"",2.0000,2.0000,0.0000,"(Developer) 2.0000, (QA Engineer) 0.0000",1.0000,0.0000,Media vault,"",Release 1,Sprint 1,"","",lennyfaceteam,"","",81.5,Matthew Matthew,Username/password. Test Plan,Must Have,Done,(Developer) Jack Ma,"",""

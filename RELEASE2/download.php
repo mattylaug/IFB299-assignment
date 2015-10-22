@@ -6,6 +6,7 @@
 	$email = @$_SESSION['email'];
 	$banned = @$_SESSION['banned'];
 	$sql = mysql_query("SELECT status,banned FROM registered_users WHERE user_id ='$id'");
+	if(isset($_GET['change_page'])){  $_SESSION['current_directory'] ='/main/'; }
 	$current_directory = @$_SESSION['current_directory'];
 	$page = 'audio';
 	
@@ -95,10 +96,10 @@
 								if(isset($_SESSION['id']))
 								{
 								?>
-								<li class="menu-item current-menu-item"><a href="download.php">Audio</a></li>
-								<li class="menu-item"><a href="blog.php">Videos</a></li>
-								<li class="menu-item"><a href="about.php">Ebooks</a></li>
-								<li class="menu-item"><a href="gallery.php">Gallery</a></li>
+								<li class="menu-item current-menu-item"><a href="download.php?change_page=true">Audio</a></li>
+								<li class="menu-item"><a href="blog.php?change_page=true">Videos</a></li>
+								<li class="menu-item"><a href="about.php?change_page=true">Ebooks</a></li>
+								<li class="menu-item"><a href="gallery.php?change_page=true">Gallery</a></li>
 								<?php
 								}
 								else{}

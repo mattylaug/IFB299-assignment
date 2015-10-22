@@ -5,9 +5,9 @@
 	$name = @$_SESSION['name'];
 	$email = @$_SESSION['email'];
 	$banned = @$_SESSION['banned'];
-	if(isset($_GET['change_page'])){  $_SESSION['current_directory'] ='/main/'; }
-	$current_directory = @$_SESSION['current_directory'];
 	$sql = mysql_query("SELECT status,banned FROM registered_users WHERE user_id ='$id'");
+	$current_directory = @$_SESSION['current_directory'];
+	$page = 'audio';
 	
 	$row = mysql_fetch_array($sql);
 	
@@ -40,7 +40,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 		
-		<title>Ebooks</title>
+		<title>Audio</title>
 		<!-- Loading third party fonts -->
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 		
@@ -95,11 +95,10 @@
 								if(isset($_SESSION['id']))
 								{
 								?>
-								<li class="menu-item"><a href="download.php?change_page=true">Audio</a></li>
-								<li class="menu-item "><a href="blog.php?change_page=true">Videos</a></li>
-								<li class="menu-item current-menu-item"><a href="about.php?change_page=true">Ebooks</a></li>
-								<li class="menu-item"><a href="gallery.php?change_page=true">Gallery</a></li>
-								
+								<li class="menu-item current-menu-item"><a href="download.php">Audio</a></li>
+								<li class="menu-item"><a href="blog.php">Videos</a></li>
+								<li class="menu-item"><a href="about.php">Ebooks</a></li>
+								<li class="menu-item"><a href="gallery.php">Gallery</a></li>
 								<?php
 								}
 								else{}
@@ -162,7 +161,7 @@
 					<div class="col-md-3">	
 					</div>	
 					<div class="col-md-6">
-						<h2 class="page-title">Upload Ebooks</h2>	
+						<h2 class="page-title">Upload Audio</h2>	
 						<center>
 							<?php
 								$message1 =@$_GET['message1'];
@@ -180,12 +179,10 @@
 							<?php } ?>
 						</center>
 						
-						<form name="audio_form" id="audio_form" action="upload_ebook.php" method="post"  class="contact-form" enctype="multipart/form-data">
+						<form name="audio_form" id="audio_form" action="upload_mp3.php" method="post"  class="contact-form" enctype="multipart/form-data">
 							<input name="name" id="" style="width:100%;" type="text" placeholder="Enter Name"/>
-							<input name="author" id="" style="width:100%;" type="text" placeholder="Enter Author Name"/>
-							<input name="description" id="" style="width:100%;" type="text" placeholder="One Line Description"/>
 							
-							<input  type="file" name="video_file"  type="text"  style="width:100%;" id="video_file"/>
+							<input  type="file" name="audio_file"  type="text"  style="width:100%;" id="audio_file"/>
 							<input type="submit" name="Submit"  id="Submit" value="Upload"/>
 						</form>
 					</div>	
@@ -217,7 +214,7 @@
 						</center>
 						
 						<!--Form for creating folder -->
-						<form name="folder_form" id="folder_form" action="create_folder.php?page=ebook"
+						<form name="folder_form" id="folder_form" action="create_folder.php?page=audio"
 						method="post" class="contact-form" enctype="multipart/form-data">
 							
 							<input name="name" id="name" style="width: 100%;" type="text" 
@@ -237,23 +234,24 @@
 				<div class="col-md-2">
 				</div>
                 <div class="col-md-8">
-					<center><h2 class="page-title">Ebooks Library. Current Directory: <?php echo @$_SESSION ['current_directory'];  ?></h2></center>	
+					<center><h2 class="page-title">Audio Library <?php echo $current_directory; ?></h2></center>	
 					
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-							Ebooks List
+							Audio List
 						</div>
+						
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Book Name</th>
-                                            <th>Author Name</th>
-                                            <th>Description</th>
-                                            <th>View</th>
-                                            <th>Download</th>
+											<th>Name</th>
+											<th>Size</th>
+											<th>Type</th>
+											<th>Play</th>
+											<th>Download</th>
 											<th>Delete</th>
 											<th>Move</th>
 											<th>Open</th>
@@ -262,85 +260,94 @@
                                     <tbody>
 										<?php
 											
-											$query = mysql_query("select * from e_books where banned = '0' and user_id = '".$_SESSION['id']."' and media_path = '$current_directory'");
+											$query = mysql_query ( "select * from media where banned = '0' and (data_type = '.mp3' || data_type = '.audiofolder') and user_id = '" . $_SESSION ['id'] . "' and media_path = '" . $_SESSION ['current_directory'] . "' " ); //
 											while ($row = mysql_fetch_array($query))
 											{	
-												$id1 = $row ['id'];
-												$name = $row['book_name'];
-												$author = $row['author_name'];
-												$description = $row['description'];
-												$data_link = $row['book_path_name'];
+												$id1 = $row ['media_id'];
+												$name = $row ['name'];
+												$size = $row ['data_size'];
+												$type = $row ['data_type'];
+												$data_link = $row ['data_link'];
 												$to_move = $row ['to_move'];
-												$media_path = $row['media_path'];
-												$type = $row['data_type'];
-					
+												$media_path = $row['media_path']
+												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
-												
-												
-												
+												<td><?php echo $size;?>Mb</td>
+												<td><?php echo $type;?></td>
 												<?php
-													
+													$check_size = mysql_query("select data_downloaded from registered_users where user_id='$id'");
+													while ($row1 = mysql_fetch_array($check_size)){
+														$data_downloaded=$row1['data_downloaded'];
+													}
+													$total_data=$data_downloaded+$size;
 													if($banned=='1'){
 													?>
 													<td class="center">You are banned.Can't download.</td>
 													<?php
 													}
+													else if($status == 'Inactive' && $total_data>10){
+														
+													?>
+													<td class="center">Your download limit exceeds.</td>
+													<?php
+														
+													}
 													else{
-														if ($type == ".ebookfolder") {
-															//is folder
+														
+													?>
+													
+													<?php
+														if ($type == ".audiofolder") {
+															// Is a folder
 														?>
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
-														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
-														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=audio&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
 														
-														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=ebook&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo $row['media_id'];?>&name=<?php echo $row['name'];?>&page=audio&file_size = <?php echo $size;?>'>Move to</a></td>
 														
-														<td class="center"><a class="btn btn-warning" href="move_to_folder.php?id=<?php echo id1;?>&name=<?php echo $name;?>&page=ebook&file_size=<?php echo '0';?>">Move to</a></td>
-														
-														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name;?>&page=ebook'>Open Folder</a></td>
+														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=audio'>Open Folder</a></td>
 														<?php
-															} else{
-															//is book
+														} 
+														else {
+															// Is not a folder
 														?>
-											
-														<td><?php echo $author;?></td>
-														<td><?php echo $description;?></td>
+														<td class="center"><a target="_blank"href="play_mp3.php?id=<?php echo $data_link; ?>" class="btn btn-warning">Play</a></td>
+														<td class="center"><a target="_blank" class="btn btn-warning" on_click='' href="<?php echo $data_link;?>" download>Download</a></td>
+														<td class="center"><a class="btn btn-warning" href="delete.php?id=<?php echo $row['media_id'];?>&page=audio&size=<?php echo $size;?>">Delete</a></td>
 														
-														<td class="center"><a target="_blank" class="btn btn-warning" href="<?php echo $data_link; ?>" >View</a></td>
-														<td class="center"><a target="_blank"  class="btn btn-warning"  href="<?php echo $data_link;?>" download>Download</a></td>
-														<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=ebook">Delete</a></td>
 														<?php
-															if($to_move == '0'){
-																
+															if($to_move=='0'){
+																//When button is clicked, sets to_move on media file in database to 1.
 															?>
-															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=ebook'>To Move </a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=audio'>To Move</a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
+															
 															<?php
 															}
 															else{
 															?>
-															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=ebook'>Ready To Move </a></td>
-															
+															<td class="center"><a class="btn btn-warning" id="btn-id"  href='to_move.php?move_id=<?php echo $id1;?>&page=audio'>Ready To Move </a></td>
+															<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 															<?php
-															}	
-														?>
-														
-														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
-													
-														<?php
+															}
+															
 														}
-													}
+													} 
+													
 												?>
+												
 											</tr>
 											
 											<?php
+												
 											}
 										?>
 									</tbody>
 								</table>
-								<a class="btn btn-warning" href='previous_folder.php?page=ebook'>Previous Folder</a>
+								<a class="btn btn-warning" href='previous_folder.php?page=audio'>Previous Folder</a>
 							</div>
 							
 						</div>
@@ -366,49 +373,49 @@
 			
 			
 			<footer class="site-footer">
-			<div class="container">
-			<img src="dummy/logo-footer.png" alt="Site Name">
-			
-			QUT
-			
-			<form action="#" class="newsletter-form">
-			<input type="email" placeholder="Enter your email to join newsletter...">
-			<input type="submit" class="button cut-corner" value="Subscribe">
-			</form> <!-- .newsletter-form -->
-			
-			<div class="social-links">
-			<a href="#"><i class="fa fa-facebook-square"></i></a>
-			<a href="#"><i class="fa fa-twitter"></i></a>
-			<a href="#"><i class="fa fa-google-plus"></i></a>
-			<a href="#"><i class="fa fa-pinterest"></i></a>
-			</div> <!-- .social-links -->
-			
-			<p class="copy">LENNYFACE</p>
-			</div>
+				<div class="container">
+					<img src="dummy/logo-footer.png" alt="Site Name">
+					
+					QUT
+					
+					<form action="#" class="newsletter-form">
+						<input type="email" placeholder="Enter your email to join newsletter...">
+						<input type="submit" class="button cut-corner" value="Subscribe">
+					</form> <!-- .newsletter-form -->
+					
+					<div class="social-links">
+						<a href="#"><i class="fa fa-facebook-square"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-google-plus"></i></a>
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+					</div> <!-- .social-links -->
+					
+					<p class="copy">LENNYFACE</p>
+				</div>
 			</footer> <!-- .site-footer -->
 			
-			</div> <!-- #site-content -->
-			
-			<script src="js/jquery-1.11.1.min.js"></script>		
-			<script src="js/plugins.js"></script>
-			<script src="js/app.js"></script>
-			
-			<script src="assets/js/jquery-1.10.2.js"></script>
-			<!-- BOOTSTRAP SCRIPTS -->
-			<script src="assets/js/bootstrap.min.js"></script>
-			<!-- METISMENU SCRIPTS -->
-			<script src="assets/js/jquery.metisMenu.js"></script>
-			<!-- DATA TABLE SCRIPTS -->
-			<script src="assets/js/dataTables/jquery.dataTables.js"></script>
-			<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-			<script>
+		</div> <!-- #site-content -->
+		
+		<script src="js/jquery-1.11.1.min.js"></script>		
+		<script src="js/plugins.js"></script>
+		<script src="js/app.js"></script>
+		
+		<script src="assets/js/jquery-1.10.2.js"></script>
+		<!-- BOOTSTRAP SCRIPTS -->
+		<script src="assets/js/bootstrap.min.js"></script>
+		<!-- METISMENU SCRIPTS -->
+		<script src="assets/js/jquery.metisMenu.js"></script>
+		<!-- DATA TABLE SCRIPTS -->
+		<script src="assets/js/dataTables/jquery.dataTables.js"></script>
+		<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+		<script>
 			$(document).ready(function () {
-			$('#dataTables-example').dataTable();
+				$('#dataTables-example').dataTable();
 			});
-			</script>
-			<!-- CUSTOM SCRIPTS -->
-			<script src="assets/js/custom.js"></script>
-			
-			</body>
-			
-			</html>									
+		</script>
+		<!-- CUSTOM SCRIPTS -->
+		<script src="assets/js/custom.js"></script>
+	
+	</body>
+	
+	</html>																																				

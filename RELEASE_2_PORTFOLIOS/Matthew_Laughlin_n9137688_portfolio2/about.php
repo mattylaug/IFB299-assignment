@@ -5,8 +5,6 @@
 	$name = @$_SESSION['name'];
 	$email = @$_SESSION['email'];
 	$banned = @$_SESSION['banned'];
-	if(isset($_GET['change_page'])){  $_SESSION['current_directory'] ='/main/'; }
-	$current_directory = @$_SESSION['current_directory'];
 	$sql = mysql_query("SELECT status,banned FROM registered_users WHERE user_id ='$id'");
 	
 	$row = mysql_fetch_array($sql);
@@ -95,10 +93,10 @@
 								if(isset($_SESSION['id']))
 								{
 								?>
-								<li class="menu-item"><a href="download.php?change_page=true">Audio</a></li>
-								<li class="menu-item "><a href="blog.php?change_page=true">Videos</a></li>
-								<li class="menu-item current-menu-item"><a href="about.php?change_page=true">Ebooks</a></li>
-								<li class="menu-item"><a href="gallery.php?change_page=true">Gallery</a></li>
+								<li class="menu-item"><a href="download.php">Audio</a></li>
+								<li class="menu-item "><a href="blog.php">Videos</a></li>
+								<li class="menu-item current-menu-item"><a href="about.php">Ebooks</a></li>
+								<li class="menu-item"><a href="gallery.php">Gallery</a></li>
 								
 								<?php
 								}
@@ -262,7 +260,7 @@
                                     <tbody>
 										<?php
 											
-											$query = mysql_query("select * from e_books where banned = '0' and user_id = '".$_SESSION['id']."' and media_path = '$current_directory'");
+											$query = mysql_query("select * from e_books where banned = '0' and user_id = '".$_SESSION['id']."'");
 											while ($row = mysql_fetch_array($query))
 											{	
 												$id1 = $row ['id'];
@@ -271,9 +269,9 @@
 												$description = $row['description'];
 												$data_link = $row['book_path_name'];
 												$to_move = $row ['to_move'];
-												$media_path = $row['media_path'];
+												$media_path = $row['media_path']
 												$type = $row['data_type'];
-					
+												
 											?>
 											<tr class="odd gradeX">
 												<td><?php echo $name;?></td>
@@ -298,9 +296,9 @@
 														
 														<td class="center"><a class="btn btn-warning" href="delete_folder.php?id=<?php echo $id1;?>&page=ebook&media_path=<?php echo $media_path; ?>&name=<?php echo $name;?>&size=<?php echo $size;?>">Delete</a></td>
 														
-														<td class="center"><a class="btn btn-warning" href="move_to_folder.php?id=<?php echo id1;?>&name=<?php echo $name;?>&page=ebook&file_size=<?php echo '0';?>">Move to</a></td>
+														<td class="center"><a class="btn btn-warning" href='move_to_folder.php?id=<?php echo id1;?>&name=<?php echo $row['name'];?>&page=ebook&file_size = <?php echo 0;?>'>Move to</a></td>
 														
-														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name;?>&page=ebook'>Open Folder</a></td>
+														<td class="center"><a class="btn btn-warning" href='open_folder.php?name=<?php echo $name?>&page=ebook'>Open Folder</a></td>
 														<?php
 															} else{
 															//is book
@@ -309,7 +307,7 @@
 														<td><?php echo $author;?></td>
 														<td><?php echo $description;?></td>
 														
-														<td class="center"><a target="_blank" class="btn btn-warning" href="<?php echo $data_link; ?>" >View</a></td>
+														<td class="center"><a target="_blank"href="<?php echo $data_link; ?>" class=""></a></td>
 														<td class="center"><a target="_blank"  class="btn btn-warning"  href="<?php echo $data_link;?>" download>Download</a></td>
 														<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=ebook">Delete</a></td>
 														<?php
@@ -328,7 +326,7 @@
 														?>
 														
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
-													
+														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 														<?php
 														}
 													}
@@ -340,7 +338,6 @@
 										?>
 									</tbody>
 								</table>
-								<a class="btn btn-warning" href='previous_folder.php?page=ebook'>Previous Folder</a>
 							</div>
 							
 						</div>

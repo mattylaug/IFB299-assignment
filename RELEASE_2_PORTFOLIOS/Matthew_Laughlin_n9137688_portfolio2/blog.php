@@ -8,7 +8,7 @@
 	$banned = @$_SESSION ['banned'];
 	$page = 'video';
 	//mysql_fetch_row ( mysql_query ( "SELECT current_directory FROM registered_users WHERE user_id = '$id'" ) ) [0];
-	if(isset($_GET['change_page'])){  $_SESSION['current_directory'] ='/main/'; }
+	
 	$sql = mysql_query ( "SELECT status,banned FROM registered_users WHERE user_id ='$id'" );
 	
 	$row = mysql_fetch_array ( $sql );
@@ -128,10 +128,10 @@
 							<?php
 								if (isset ( $_SESSION ['id'] )) {
 								?>
-								<li class="menu-item"><a href="download.php?change_page=true">Audio</a></li>
-								<li class="menu-item current-menu-item?change_page=true"><a href="blog.php">Videos</a></li>
-								<li class="menu-item"><a href="about.php?change_page=true">Ebooks</a></li>
-								<li class="menu-item"><a href="gallery.php?change_page=true">Gallery</a></li>
+								<li class="menu-item"><a href="download.php">Audio</a></li>
+								<li class="menu-item current-menu-item"><a href="blog.php">Videos</a></li>
+								<li class="menu-item"><a href="about.php">Ebooks</a></li>
+								<li class="menu-item"><a href="gallery.php">Gallery</a></li>
 								
 								<?php
 									} else {
