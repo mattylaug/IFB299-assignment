@@ -287,7 +287,7 @@
 													}
 													else{
 														if ($type == ".ebookfolder") {
-															//is a folder
+															//is folder
 														?>
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
@@ -303,7 +303,7 @@
 															} else{
 															//is book
 														?>
-														//is book
+											
 														<td><?php echo $author;?></td>
 														<td><?php echo $description;?></td>
 														
@@ -324,7 +324,6 @@
 															<?php
 															}	
 														?>
-														<td class="center"><a  class="btn btn-warning"  href="delete_book.php?id=<?php echo $row['id'];?>&page=ebook">Delete</a></td>
 														
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>
 														<td class="center"><a class="btn btn-warning" id="btn-id" href="" disabled></a></td>

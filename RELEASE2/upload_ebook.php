@@ -5,6 +5,7 @@
 	$name = @$_SESSION['name'];
 	$email = @$_SESSION['email'];
 	$sql = mysql_query("SELECT status FROM registered_users WHERE user_id ='$id'");
+	$current_directory = @$_SESSION['current_directory'];
 	
 	$row = mysql_fetch_array($sql);
 	
@@ -98,6 +99,19 @@
 						
 						if(mysql_query($query_insert))
 						header("Location:about.php?message=E-book uploaded successfully");
+						
+						$query_insert_users="UPDATE `registered_users` SET `data_uploaded`='$total_data' where user_id='$id'";
+						mysql_query($query_insert_users);
+						
+						//Below is code for getting the folder name so later the size can be deduced
+						$exploded_dir = explode('/',$current_directory);
+						$folder_name =$exploded_dir[sizeof($exploded_dir)-2]; //gets current folder name
+						
+						$insertquery ="INSERT INTO `e_books`(`book_name`, `author_name`, `description`, `book_path_name`, `media_path`,`user_id`,`data_type`) VALUES ('$book_name', '$author_name' , '$description' ,'$target_path', '$current_directory','$id', '$ext')";
+						if(mysql_query($insertquery)){
+							header("Location:about.php?message=Uploaded ebook successfully.");
+							
+						}
 						
 					}
 					//following function will move uploaded file to audios folder. 
